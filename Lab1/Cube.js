@@ -14,31 +14,25 @@ gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 const positions = [];
 const colors = [];
 
- 
-
-function xCalccolor(x) {
-   x === 1 ? colors.push(0, 0, 1, 1) : colors.push(1, 1, 0, 1);
-}
-
-function yCalccolor(y) {
-   y === 1 ? colors.push(1, 0, 0, 1) : colors.push(0, 1, 1, 1);
-}
-
-function zCalccolor(z) {
-   z === 1 ? colors.push(0, 1, 0, 1) : colors.push(1, 0, 1, 1);
-}
 
 for (let x = -1; x <= 1; x += 2) {
    for (let y = -1; y <= 1; y += 2) {
       for (let z = -1; z <= 1; z += 2) {
          positions.push(x, y, z);
-         zCalccolor(z);
+
+         colors.push(
+            ((x-y-z)/6) + (1/2), 
+            ((y-x-z)/6) + (1/2), 
+            ((z-x-y)/6) + (1/2),
+            1);
+         /* x === 1 ? colors.push(0, 0, 1, 1) : colors.push(1, 1, 0, 1);
+         y === 1 ? colors.push(1, 0, 0, 1) : colors.push(0, 1, 1, 1);
+         z === 1 ? colors.push(0, 1, 0, 1) : colors.push(1, 0, 1, 1); */
       }
    }
 }
-console.log(colors);
 // Now pass the list of positions into WebGL to build the
-// shape. We do this by creating a Float32Array from the
+// shape. We do this by ceating a Float32Array from the
 // JavaScript array, then use it to fill the current buffer.
 
 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
@@ -63,32 +57,31 @@ gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
 // position.
 
 const indices = [
-  0, 1, 2, 1, 2, 3, //front
-  4, 5, 6, 5, 6, 7, //back
-  0, 2, 6, 0, 4, 6, //left
-  1, 3, 7, 1, 5, 7, //right
-  0, 1, 4, 1, 4, 5, //top
-  2, 3, 6, 7, 6, 3, //bottom
+ 0, 1, 2, 1, 2, 3, //front
+ 4, 5, 6, 5, 6, 7, //back
+ 0, 2, 6, 0, 4, 6, //left
+ 1, 3, 7, 1, 5, 7, //right
+ 0, 1, 4, 1, 4, 5, //top
+ 2, 3, 6, 7, 6, 3, //bottom
 ];
 
 // Now send the element array to GL
 
 
-gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,
-    new Uint16Array(indices), gl.STATIC_DRAW);
+gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
 
 return {
-  positions: positions,
-  positionBuf : positionBuffer,
-  indices: indices,
-  indexBuf: indexBuffer,
-  properties : {
-     color : {
+   positions: positions,
+   positionBuf : positionBuffer,
+   indices: indices,
+   indexBuf: indexBuffer,
+   properties : {
+      color : {
          vals : colors,
          buf : colorBuffer,
          type : gl.FLOAT,
          numComponents: 4 
-     }
-  }
-  };
+      }
+   }
+};
 }
