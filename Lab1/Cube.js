@@ -14,15 +14,29 @@ gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 const positions = [];
 const colors = [];
 
+ 
+
+function xCalccolor(x) {
+   x === 1 ? colors.push(0, 0, 1, 1) : colors.push(1, 1, 0, 1);
+}
+
+function yCalccolor(y) {
+   y === 1 ? colors.push(1, 0, 0, 1) : colors.push(0, 1, 1, 1);
+}
+
+function zCalccolor(z) {
+   z === 1 ? colors.push(0, 1, 0, 1) : colors.push(1, 0, 1, 1);
+}
+
 for (let x = -1; x <= 1; x += 2) {
    for (let y = -1; y <= 1; y += 2) {
       for (let z = -1; z <= 1; z += 2) {
          positions.push(x, y, z);
-         colors.push(1, 1, 1, 1);
+         zCalccolor(z);
       }
    }
 }
-
+console.log(colors);
 // Now pass the list of positions into WebGL to build the
 // shape. We do this by creating a Float32Array from the
 // JavaScript array, then use it to fill the current buffer.
