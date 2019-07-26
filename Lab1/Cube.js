@@ -11,43 +11,16 @@ gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
 // Now create an array of positions for the cube.
 
-const positions = [
-  // Front face
-  -1.0, -1.0,  1.0,
-   1.0, -1.0,  1.0,
-   1.0,  1.0,  1.0,
-  -1.0,  1.0,  1.0,
-
-  // Back face
-  -1.0, -1.0, -1.0,
-  -1.0,  1.0, -1.0,
-   1.0,  1.0, -1.0,
-   1.0, -1.0, -1.0,
-
-  // Top face
-  -1.0,  1.0, -1.0,
-  -1.0,  1.0,  1.0,
-   1.0,  1.0,  1.0,
-   1.0,  1.0, -1.0,
-
-  // Bottom face
-  -1.0, -1.0, -1.0,
-   1.0, -1.0, -1.0,
-   1.0, -1.0,  1.0,
-  -1.0, -1.0,  1.0,
-
-  // Right face
-   1.0, -1.0, -1.0,
-   1.0,  1.0, -1.0,
-   1.0,  1.0,  1.0,
-   1.0, -1.0,  1.0,
-
-  // Left face
-  -1.0, -1.0, -1.0,
-  -1.0, -1.0,  1.0,
-  -1.0,  1.0,  1.0,
-  -1.0,  1.0, -1.0,
-];
+const positions = [];
+const colors = [];
+ 
+for (let x = -1; x <= 1; x += 2) {
+   for (let y = -1; y <= 1; y += 2) {
+      for (let z = -1; z <= 1; z += 2) {
+         positions.push(x, y, z);
+      }
+   }
+}
 
 // Now pass the list of positions into WebGL to build the
 // shape. We do this by creating a Float32Array from the
@@ -57,26 +30,8 @@ gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
 // Now set up the colors for the faces. We'll use solid colors
 // for each face.
-
-const faceColors = [
-  [1.0,  1.0,  1.0,  1.0],    // Front face: white
-  [1.0,  0.0,  0.0,  1.0],    // Back face: red
-  [0.0,  1.0,  0.0,  1.0],    // Top face: green
-  [0.0,  0.0,  1.0,  1.0],    // Bottom face: blue
-  [1.0,  1.0,  0.0,  1.0],    // Right face: yellow
-  [1.0,  0.0,  1.0,  1.0],    // Left face: purple
-];
-
+console.log(positions);
 // Convert the array of colors into a table for all the vertices.
-
-var colors = [];
-
-for (var j = 0; j < faceColors.length; ++j) {
-  const c = faceColors[j];
-
-  // Repeat each color four times for the four vertices of the face
-  colors = colors.concat(c, c, c, c);
-}
 
 const colorBuffer = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
@@ -93,15 +48,16 @@ gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
 // position.
 
 const indices = [
-  0,  1,  2,      0,  2,  3,    // front
-  4,  5,  6,      4,  6,  7,    // back
-  8,  9,  10,     8,  10, 11,   // top
-  12, 13, 14,     12, 14, 15,   // bottom
-  16, 17, 18,     16, 18, 19,   // right
-  20, 21, 22,     20, 22, 23,   // left
+  0, 1, 2, 1, 2, 3, //front
+  4, 5, 6, 5, 6, 7, //back
+  0, 2, 6, 0, 4, 6, //left
+  1, 3, 7, 1, 5, 7, //right
+  0, 1, 4, 1, 4, 5, //top
+  2, 3, 6, 7, 6, 3, //bottom
 ];
 
 // Now send the element array to GL
+console.log(indices);
 
 gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,
     new Uint16Array(indices), gl.STATIC_DRAW);

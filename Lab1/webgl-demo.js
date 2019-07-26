@@ -53,15 +53,11 @@ function main() {
   // objects we'll be drawing.
   const cubeModel = makeCubeModel(gl);
 
-  var then = 0;
-
   // Draw the scene repeatedly
   function doFrame(now) {
     now *= 0.001;  // convert to seconds
-    const deltaTime = now - then;
-    then = now;
     
-    drawScene(gl, programInfo, cubeModel, deltaTime);
+    drawScene(gl, programInfo, cubeModel, now);
     
     requestAnimationFrame(doFrame);
   }
@@ -70,7 +66,7 @@ function main() {
 //
 // Draw the scene.
 //
-function drawScene(gl, programInfo, cubeModel, deltaTime) {
+function drawScene(gl, programInfo, cubeModel, time) {
   gl.clearColor(0.0, 0.0, 0.0, 1.0);  // Clear to black, fully opaque
   gl.clearDepth(1.0);                 // Clear everything
   gl.enable(gl.DEPTH_TEST);           // Enable depth testing
@@ -187,7 +183,7 @@ function drawScene(gl, programInfo, cubeModel, deltaTime) {
 
   // Update the rotation for the next draw
 
-  cubeRotation += deltaTime;
+  cubeRotation = time;
 }
 
 //
