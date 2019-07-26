@@ -13,11 +13,12 @@ gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
 const positions = [];
 const colors = [];
- 
+
 for (let x = -1; x <= 1; x += 2) {
    for (let y = -1; y <= 1; y += 2) {
       for (let z = -1; z <= 1; z += 2) {
          positions.push(x, y, z);
+         colors.push(1, 1, 1, 1);
       }
    }
 }
@@ -30,7 +31,7 @@ gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
 // Now set up the colors for the faces. We'll use solid colors
 // for each face.
-console.log(positions);
+
 // Convert the array of colors into a table for all the vertices.
 
 const colorBuffer = gl.createBuffer();
@@ -57,7 +58,7 @@ const indices = [
 ];
 
 // Now send the element array to GL
-console.log(indices);
+
 
 gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,
     new Uint16Array(indices), gl.STATIC_DRAW);
