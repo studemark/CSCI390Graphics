@@ -1,4 +1,4 @@
-class Cube extends LeafModel {
+class CubeModel extends LeafModel {
    
    constructor(gl) {
       super();

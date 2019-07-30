@@ -51,7 +51,7 @@ function main() {
 
    // Here's where we call the routine that builds all the
    // objects we'll be drawing.
-   const cube = new Cube(gl);
+   const cube = new CubeModel(gl);
 
    // Draw the scene repeatedly
    function doFrame(now) {
