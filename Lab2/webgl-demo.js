@@ -51,13 +51,13 @@ function main() {
 
    // Here's where we call the routine that builds all the
    // objects we'll be drawing.
-   const cubeModel = makeCubeModel(gl);
+   const cube = new Cube(gl);
 
    // Draw the scene repeatedly
    function doFrame(now) {
       now *= 0.001;  // convert to seconds
     
-      drawScene(gl, programInfo, cubeModel, now);
+      drawScene(gl, programInfo, cube, now);
     
       requestAnimationFrame(doFrame);
    }
@@ -66,7 +66,7 @@ function main() {
 //
 // Draw the scene.
 //
-function drawScene(gl, programInfo, cubeModel, time) {
+function drawScene(gl, programInfo, cube, time) {
    gl.clearColor(0.0, 0.0, 0.0, 1.0);  // Clear to black, fully opaque
    gl.clearDepth(1.0);                 // Clear everything
    gl.enable(gl.DEPTH_TEST);           // Enable depth testing
@@ -111,70 +111,17 @@ function drawScene(gl, programInfo, cubeModel, time) {
     modelViewMatrix,  // matrix to rotate
     cubeRotation * .7,// amount to rotate in radians
     [1, 1, 0]);       // axis to rotate around (Y)
-              
-
-   // Tell WebGL how to pull out the positions from the position
-   // buffer into the vertexPosition attribute
-   {
-      const numComponents = 3;
-      const type = gl.FLOAT;
-      const normalize = false;
-      const stride = 0;
-      const offset = 0;
-      gl.bindBuffer(gl.ARRAY_BUFFER, cubeModel.positionBuf);
-      gl.vertexAttribPointer(
-       programInfo.attLocs.positions,
-       numComponents,
-       type,
-       normalize,
-       stride,
-       offset);
-      gl.enableVertexAttribArray(programInfo.attLocs.positions);
-   }
-
-   // Tell WebGL how to pull out the colors from the color buffer
-   // into the vertexColor attribute.
-  {
-
-   const normalize = false;
-   const stride = 0;
-   const offset = 0;
-   gl.bindBuffer(gl.ARRAY_BUFFER, cubeModel.properties.color.buf);
-   gl.vertexAttribPointer(
-    programInfo.attLocs.color,
-    cubeModel.properties.color.numComponents,
-    cubeModel.properties.color.type,
-    normalize,
-    stride,
-    offset);
-   gl.enableVertexAttribArray(programInfo.attLocs.color);
-   }
-
-   // Tell WebGL which indices to use to index the vertices
-   gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeModel.indexBuf);
-
-   // Tell WebGL to use our program when drawing
-
+   
    gl.useProgram(programInfo.program);
-
-   // Set the shader uniforms
 
    gl.uniformMatrix4fv(
     programInfo.ufmLocs.projectionMatrix,
     false,
-    projectionMatrix);
-   gl.uniformMatrix4fv(
-    programInfo.ufmLocs.viewMatrix,
-    false,
-    modelViewMatrix);
+    projectionMatrix); 
 
-   {
-      const vertexCount = 36;
-      const type = gl.UNSIGNED_SHORT;
-      const offset = 0;
-      gl.drawElements(gl.TRIANGLES, vertexCount, type, offset);
-   }
-
+   // Tell WebGL how to pull out the positions from the position
+   // buffer into the vertexPosition attribute
+   cube.render(gl, programInfo, modelViewMatrix);
    // Update the rotation for the next draw
 
    cubeRotation = time;
