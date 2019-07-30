@@ -43,11 +43,17 @@ class CubeModel extends LeafModel {
        2, 3, 6, 7, 6, 3, //bottom
       ];
 
-
       gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this.indices), gl.STATIC_DRAW);
 
       this.positionBuffer = positionBuffer;
       this.indexBuffer = indexBuffer;
-      this.properties["color"] = {vals : colors, buf : colorBuffer, type : gl.FLOAT, numComponents : 4};
+      this.properties = {
+         color : {
+            vals : colors, 
+            buf : colorBuffer, 
+            type : gl.FLOAT, 
+            numComponents : 4
+         }
+      };
    };
 }
