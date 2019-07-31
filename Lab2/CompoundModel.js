@@ -1,19 +1,20 @@
 class CompoundModel { 
    constructor() {
-      this.submodels = {};
-      this.curTransform = [];
+      this.submodels = [];
    }
 
    addChild(model, transform) {
-      this.submodels[model] = transform;
+      this.submodels.push([model, transform]);
    }
 
-   render() {
+   render(gl, prgInfo, mvMatrix) {
+
+      const finaltransform = mat4.create();
+
       for (var models in this.submodels) {
-         this.curTransform.push(this.submodels[models]);
+         mat4.multiply(finaltransform, this.submodels[models][1], mvMatrix);
+         this.submodels[models][0].render(gl, prgInfo, finaltransform);
       }
-      for (var models in this.curTransform) {
-         this.curTransform[models].transform;
-      }
+
    }
 }

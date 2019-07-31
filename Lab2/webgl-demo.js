@@ -1,4 +1,3 @@
-var cubeRotation = 0.0;
 
 main();
 
@@ -51,13 +50,14 @@ function main() {
 
    // Here's where we call the routine that builds all the
    // objects we'll be drawing.
-   const cube = new CubeModel(gl);
+   //const cube = new CubeModel(gl);
+   const jack = new Jack(gl);
 
    // Draw the scene repeatedly
    function doFrame(now) {
       now *= 0.001;  // convert to seconds
     
-      drawScene(gl, programInfo, cube, now);
+      drawScene(gl, programInfo, jack, now);
     
       requestAnimationFrame(doFrame);
    }
@@ -66,7 +66,7 @@ function main() {
 //
 // Draw the scene.
 //
-function drawScene(gl, programInfo, cube, time) {
+function drawScene(gl, programInfo, jack, time) {
    gl.clearColor(0.0, 0.0, 0.0, 1.0);  // Clear to black, fully opaque
    gl.clearDepth(1.0);                 // Clear everything
    gl.enable(gl.DEPTH_TEST);           // Enable depth testing
@@ -102,14 +102,14 @@ function drawScene(gl, programInfo, cube, time) {
 
    mat4.translate(modelViewMatrix,     // destination matrix
     modelViewMatrix,     // matrix to translate
-    [-0.0, 0.0, -6.0]);  // amount to translate
+    [0.0, 0.0, -6.0]);  // amount to translate
    mat4.rotate(modelViewMatrix,  // destination matrix
     modelViewMatrix,  // matrix to rotate
-    cubeRotation,     // amount to rotate in radians
+    Math.PI / 4,     // amount to rotate in radians
     [0, 0, 1]);       // axis to rotate around (Z)
    mat4.rotate(modelViewMatrix,  // destination matrix
     modelViewMatrix,  // matrix to rotate
-    cubeRotation * .7,// amount to rotate in radians
+    Math.PI / 4,// amount to rotate in radians
     [1, 1, 0]);       // axis to rotate around (Y)
    
    gl.useProgram(programInfo.program);
@@ -121,10 +121,11 @@ function drawScene(gl, programInfo, cube, time) {
 
    // Tell WebGL how to pull out the positions from the position
    // buffer into the vertexPosition attribute
-   cube.render(gl, programInfo, modelViewMatrix);
+   //cube.render(gl, programInfo, modelViewMatrix);
+   jack.render(gl, programInfo, modelViewMatrix);
    // Update the rotation for the next draw
 
-   cubeRotation = time;
+   //cubeRotation = time;
 }
 
 function loadShader(gl, type, source) {
