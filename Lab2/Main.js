@@ -44,6 +44,7 @@ function main() {
    const programInfo = makeShaderProgram(gl, vsSource, fsSource, ['positions', 'color'], ['projectionMatrix', 'viewMatrix']);
 
    const mvMatrix = mat4.create();
+   mat4.translate(mvMatrix, mvMatrix, [0, 0, -10]);
    
    // Here's where we call the routine that builds all the
    // objects we'll be drawing.
@@ -59,48 +60,37 @@ function main() {
       requestAnimationFrame(doFrame);
    }
    requestAnimationFrame(doFrame);
-   
-   var r = -10;
-   
-   var lat = 0;
-   var lng = 0;
-   
-   var x = r * Math.cos(lat) * Math.cos(lng);
-   var y = r * Math.sin(lat);
-   var z = -(r * Math.cos(lat) * Math.sin(lng));
-   
-   mat4.translate(mvMatrix, mvMatrix, [x, y, z]);
-   console.log(mvMatrix);
-   console.log(x);
-   console.log(y);
-   console.log(z);
+
+   /* var x = 0;
+   var y = 0;
+   var z = -10;  */  
 
    document.addEventListener("keydown", event => {
       if (event.code === "ArrowDown" ) {
-
-         mat4.rotate(mvMatrix, mvMatrix, Math.PI/10, [x, y, z]);
+         mat4.rotate(mvMatrix, mvMatrix, Math.PI/10, [-1, 0, 0]);      
       }
    
       else if (event.code === "ArrowUp" ) {
-         mat4.rotate(mvMatrix, mvMatrix, Math.PI/10, [x, y, z]);
+         mat4.rotate(mvMatrix, mvMatrix, Math.PI/10, [1, 0, 0]);      
       }
    
       else if (event.code === "ArrowLeft" ) {
-         mat4.rotate(mvMatrix, mvMatrix, Math.PI/10, [x, y, z]);
+         mat4.rotate(mvMatrix, mvMatrix, Math.PI/10, [0, 1, 0]);      
       }
    
       else if (event.code === "ArrowRight" ) {
-         mat4.rotate(mvMatrix, mvMatrix, Math.PI/10, [x, y, z]);
+         mat4.rotate(mvMatrix, mvMatrix, Math.PI/10, [0, -1, 0]);      
       }
 
       else if (event.code === "KeyF") {
-         mat4.translate(mvMatrix, mvMatrix, [x, y, z])
+         mat4.translate(mvMatrix, mvMatrix, [0, 0, -0.1]);      
       }
 
       else if (event.code === "KeyG") {
-         mat4.translate(mvMatrix, mvMatrix, [x, y, z])
+         mat4.translate(mvMatrix, mvMatrix, [0, 0, 0.1]);
       }
-      
+      //mat4.rotate(mvMatrix, mvMatrix, Math.PI/10, [x, y, z]);
+      //mat4.translate(mvMatrix, mvMatrix, [x, y, z])
    });
 
 } 
