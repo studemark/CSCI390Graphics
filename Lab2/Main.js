@@ -1,21 +1,14 @@
 var cubeRotation = 0.0;
 main();
 
-//
-// Start here
-//
 function main() {
    const canvas = document.querySelector('#glcanvas');
    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-
-  // If we don't have a GL context, give up now
 
    if (!gl) {
       alert('Unable to initialize WebGL. Your browser or machine may not support it.');
       return;
    }
-
-  // Vertex shader program
 
    const vsSource = `
    attribute vec4 positions;
@@ -29,8 +22,6 @@ function main() {
    }
    `;
 
-  // Fragment shader program
-
    const fsSource = `
    varying lowp vec4 vColor;
    void main(void) {
@@ -38,20 +29,13 @@ function main() {
    }
    `;
 
-   // Initialize a shader program; this is where all the lighting
-   // for the vertices and so forth is established.
-
    const programInfo = makeShaderProgram(gl, vsSource, fsSource, ['positions', 'color'], ['projectionMatrix', 'viewMatrix']);
 
    const mvMatrix = mat4.create();
    mat4.translate(mvMatrix, mvMatrix, [0, 0, -10]);
    
-   // Here's where we call the routine that builds all the
-   // objects we'll be drawing.
-   //const cube = new CubeModel(gl);
    const jack = new JackStackAttack(gl);
    
-   // Draw the scene repeatedly
    function doFrame(now) {
       now *= 0.001;  // convert to seconds
       
@@ -60,51 +44,58 @@ function main() {
       requestAnimationFrame(doFrame);
    }
    requestAnimationFrame(doFrame);
-
-   /* var x = 0;
-   var y = 0;
-   var z = -10;  */  
+   
+   var lat = 0;
+   var lng = 0;
+   var r = -10;
+   var translation = [0, 0, r];
 
    document.addEventListener("keydown", event => {
       if (event.code === "ArrowDown" ) {
-         mat4.rotate(mvMatrix, mvMatrix, Math.PI/10, [-1, 0, 0]);      
+         lat -= Math.PI/10;
       }
    
       else if (event.code === "ArrowUp" ) {
-         mat4.rotate(mvMatrix, mvMatrix, Math.PI/10, [1, 0, 0]);      
+         lat += Math.PI/10;
       }
    
       else if (event.code === "ArrowLeft" ) {
-         mat4.rotate(mvMatrix, mvMatrix, Math.PI/10, [0, 1, 0]);      
+         lng -= Math.PI/10;
       }
    
       else if (event.code === "ArrowRight" ) {
-         mat4.rotate(mvMatrix, mvMatrix, Math.PI/10, [0, -1, 0]);      
+         lng += Math.PI/10;
       }
 
       else if (event.code === "KeyF") {
-         mat4.translate(mvMatrix, mvMatrix, [0, 0, -0.1]);      
+         r -= 0.1;
       }
 
       else if (event.code === "KeyG") {
-         mat4.translate(mvMatrix, mvMatrix, [0, 0, 0.1]);
+         r += 0.1;
       }
-      //mat4.rotate(mvMatrix, mvMatrix, Math.PI/10, [x, y, z]);
-      //mat4.translate(mvMatrix, mvMatrix, [x, y, z])
+      
+      mat4.rotate(mvMatrix, mvMatrix, lat, [1, 0, 0]);
+      mat4.rotate(mvMatrix, mvMatrix, lng, [0, 1, 0]);
+      console.log(lat);
+      console.log(lng);
+      console.log(mvMatrix);
+
+      //mat4.translate(mvMatrix, mvMatrix, translation);
    });
 
 } 
 
 function drawScene(gl, programInfo, jack, time, mvMatrix) {
-   gl.clearColor(0.0, 0.0, 0.0, 1.0);  // Clear to black, fully opaque
-   gl.clearDepth(1.0);                 // Clear everything
-   gl.enable(gl.DEPTH_TEST);           // Enable depth testing
-   gl.depthFunc(gl.LEQUAL);            // Near things obscure far things
+   gl.clearColor(0.0, 0.0, 0.0, 1.0);  
+   gl.clearDepth(1.0);                 
+   gl.enable(gl.DEPTH_TEST);           
+   gl.depthFunc(gl.LEQUAL);            
 
 
    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-   const fieldOfView = 45 * Math.PI / 180;   // in radians
+   const fieldOfView = 45 * Math.PI / 180;
    const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
    const zNear = 0.1;
    const zFar = 100.0;
@@ -139,15 +130,9 @@ function drawScene(gl, programInfo, jack, time, mvMatrix) {
 function loadShader(gl, type, source) {
    const shader = gl.createShader(type);
 
-   // Send the source to the shader object
-
    gl.shaderSource(shader, source);
 
-   // Compile the shader program
-
    gl.compileShader(shader);
-
-   // See if it compiled successfully
 
    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
       alert('An error occurred compiling the shaders: ' + gl.getShaderInfoLog(shader));
