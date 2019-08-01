@@ -8,13 +8,12 @@ class CompoundModel {
    }
 
    render(gl, prgInfo, mvMatrix) {
+      //console.log(this.submodels); 
+      const finalTransform = mat4.create();
 
-      const finaltransform = mat4.create();
-
-      for (var models in this.submodels) {
-         mat4.multiply(finaltransform, this.submodels[models][1], mvMatrix);
-         this.submodels[models][0].render(gl, prgInfo, finaltransform);
+      for (var models of this.submodels) {
+         mat4.multiply(finalTransform, mvMatrix, models[1]);
+         models[0].render(gl, prgInfo, finalTransform);
       }
-
    }
 }

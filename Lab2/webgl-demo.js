@@ -1,4 +1,4 @@
-
+var cubeRotation = 0.0;
 main();
 
 //
@@ -51,7 +51,7 @@ function main() {
    // Here's where we call the routine that builds all the
    // objects we'll be drawing.
    //const cube = new CubeModel(gl);
-   const jack = new Jack(gl);
+   const jack = new JackStackAttack(gl);
 
    // Draw the scene repeatedly
    function doFrame(now) {
@@ -105,11 +105,11 @@ function drawScene(gl, programInfo, jack, time) {
     [0.0, 0.0, -6.0]);  // amount to translate
    mat4.rotate(modelViewMatrix,  // destination matrix
     modelViewMatrix,  // matrix to rotate
-    Math.PI / 4,     // amount to rotate in radians
+    cubeRotation * Math.PI / 4,     // amount to rotate in radians
     [0, 0, 1]);       // axis to rotate around (Z)
    mat4.rotate(modelViewMatrix,  // destination matrix
     modelViewMatrix,  // matrix to rotate
-    Math.PI / 4,// amount to rotate in radians
+    cubeRotation * Math.PI / 4,// amount to rotate in radians
     [1, 1, 0]);       // axis to rotate around (Y)
    
    gl.useProgram(programInfo.program);
@@ -125,7 +125,7 @@ function drawScene(gl, programInfo, jack, time) {
    jack.render(gl, programInfo, modelViewMatrix);
    // Update the rotation for the next draw
 
-   //cubeRotation = time;
+   cubeRotation = time;
 }
 
 function loadShader(gl, type, source) {
