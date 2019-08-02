@@ -22,9 +22,6 @@ class LeafModel {
           offset);
          gl.enableVertexAttribArray(prgInfo.attLocs.positions);
       }
-   
-      // Tell WebGL how to pull out the colors from the color buffer
-      // into the vertexColor attribute.
 
       const propArray = Object.keys(this.properties);
 
@@ -35,24 +32,19 @@ class LeafModel {
                const normalize = false;
                const stride = 0;
                const offset = 0;
-               gl.bindBuffer(gl.ARRAY_BUFFER, this.properties[prop].buf); //    this.properties.color.buf
+               gl.bindBuffer(gl.ARRAY_BUFFER, this.properties[prop].buf);
                gl.vertexAttribPointer(
-                prgInfo.attLocs[prop], //    prgInfo.attLocs.color
-                this.properties[prop].numComponents, //    this.properties.color.numComponents
-                this.properties[prop].type, //   this.properties.color.type
+                prgInfo.attLocs[prop],
+                this.properties[prop].numComponents,
+                this.properties[prop].type,
                 normalize,
                 stride,
                 offset);
-               gl.enableVertexAttribArray(prgInfo.attLocs[prop]); //    prgInfo.attLocs.color
+               gl.enableVertexAttribArray(prgInfo.attLocs[prop]);
             }
          }
       }
-      // Tell WebGL which indices to use to index the vertices
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
-   
-      // Tell WebGL to use our program when drawing
-   
-      // Set the shader uniforms
    
       gl.uniformMatrix4fv(
        prgInfo.ufmLocs.viewMatrix,

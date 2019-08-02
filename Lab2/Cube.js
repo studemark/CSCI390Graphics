@@ -9,17 +9,12 @@ class CubeModel extends LeafModel {
       this.positions = [];
       const colors = [];
 
-
       for (let x = -1; x <= 1; x += 2) {
          for (let y = -1; y <= 1; y += 2) {
             for (let z = -1; z <= 1; z += 2) {
                this.positions.push(x, y, z);
 
-               colors.push(
-                  ((x-y-z)/6) + (1/2), 
-                  ((y-x-z)/6) + (1/2), 
-                  ((z-x-y)/6) + (1/2),
-                  1);
+               colors.push(((x-y-z)/6) + (1/2), ((y-x-z)/6) + (1/2), ((z-x-y)/6) + (1/2), 1);
             }
          }
       }
@@ -29,7 +24,6 @@ class CubeModel extends LeafModel {
       const colorBuffer = gl.createBuffer();
       gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
-
 
       const indexBuffer = gl.createBuffer();
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
