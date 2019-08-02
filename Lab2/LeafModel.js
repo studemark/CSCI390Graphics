@@ -6,56 +6,46 @@ class LeafModel {
    }
 
    render(gl, prgInfo, mvMatrix) {
-      {
-         const numComponents = 3;
-         const type = gl.FLOAT;
-         const normalize = false;
-         const stride = 0;
-         const offset = 0;
-         gl.bindBuffer(gl.ARRAY_BUFFER, this.positionBuffer);
-         gl.vertexAttribPointer(
-          prgInfo.attLocs.positions,
-          numComponents,
-          type,
-          normalize,
-          stride,
-          offset);
-         gl.enableVertexAttribArray(prgInfo.attLocs.positions);
-      }
-
+      const numComponents = 3;
+      const type = gl.FLOAT;
+      const normalize = false;
+      const stride = 0;
+      const offset = 0;
+      gl.bindBuffer(gl.ARRAY_BUFFER, this.positionBuffer);
+      gl.vertexAttribPointer(
+       prgInfo.attLocs.positions,
+       numComponents,
+       type,
+       normalize,
+       stride,
+       offset);
+      gl.enableVertexAttribArray(prgInfo.attLocs.positions);
       const propArray = Object.keys(this.properties);
-
       if (propArray[0]) {
          for (var i = 0; i < propArray.length; i++) {
             var prop = propArray[i];
-            {
-               const normalize = false;
-               const stride = 0;
-               const offset = 0;
-               gl.bindBuffer(gl.ARRAY_BUFFER, this.properties[prop].buf);
-               gl.vertexAttribPointer(
-                prgInfo.attLocs[prop],
-                this.properties[prop].numComponents,
-                this.properties[prop].type,
-                normalize,
-                stride,
-                offset);
-               gl.enableVertexAttribArray(prgInfo.attLocs[prop]);
-            }
+            const normalize = false;
+            const stride = 0;
+            const offset = 0;
+            gl.bindBuffer(gl.ARRAY_BUFFER, this.properties[prop].buf);
+            gl.vertexAttribPointer(
+             prgInfo.attLocs[prop],
+             this.properties[prop].numComponents,
+             this.properties[prop].type,
+             normalize,
+             stride,
+             offset);
+            gl.enableVertexAttribArray(prgInfo.attLocs[prop]);
          }
       }
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
-   
       gl.uniformMatrix4fv(
        prgInfo.ufmLocs.viewMatrix,
        false,
        mvMatrix);
-   
-      {
-         const vertexCount = 36;
-         const type = gl.UNSIGNED_SHORT;
-         const offset = 0;
-         gl.drawElements(gl.TRIANGLES, vertexCount, type, offset);
-      }
+       const vertexCount = 36;
+       const type = gl.UNSIGNED_SHORT;
+       const offset = 0;
+       gl.drawElements(gl.TRIANGLES, vertexCount, type, offset);
    }
 }
