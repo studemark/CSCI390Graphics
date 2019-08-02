@@ -32,7 +32,6 @@ function main() {
    const programInfo = makeShaderProgram(gl, vsSource, fsSource, ['positions', 'color'], ['projectionMatrix', 'viewMatrix']);
 
    const mvMatrix = mat4.create();
-   mat4.translate(mvMatrix, mvMatrix, [0, 0, -10]);
    
    const jack = new JackStackAttack(gl);
    
@@ -48,40 +47,41 @@ function main() {
    var lat = 0;
    var lng = 0;
    var r = -10;
-   var translation = [0, 0, r];
-
+   mat4.translate(mvMatrix, mat4.create(), [0, 0, r]);
+   
    document.addEventListener("keydown", event => {
+      
+      
       if (event.code === "ArrowDown" ) {
-         lat -= Math.PI/10;
+         if (lat <= -Math.PI/2) {
+            lat -= Math.PI/10;
+         }
       }
-   
+      
       else if (event.code === "ArrowUp" ) {
-         lat += Math.PI/10;
+         if (lat <= Math.PI/2) {
+            lat += Math.PI/10;
+         }
       }
-   
+      
       else if (event.code === "ArrowLeft" ) {
-         lng -= Math.PI/10;
-      }
-   
-      else if (event.code === "ArrowRight" ) {
          lng += Math.PI/10;
       }
-
+      
+      else if (event.code === "ArrowRight" ) {
+         lng -= Math.PI/10;
+      }
+      
       else if (event.code === "KeyF") {
          r -= 0.1;
       }
-
+      
       else if (event.code === "KeyG") {
          r += 0.1;
       }
-      
+      mat4.translate(mvMatrix, mat4.create(), [0, 0, r]);
       mat4.rotate(mvMatrix, mvMatrix, lat, [1, 0, 0]);
       mat4.rotate(mvMatrix, mvMatrix, lng, [0, 1, 0]);
-      console.log(lat);
-      console.log(lng);
-      console.log(mvMatrix);
-
-      //mat4.translate(mvMatrix, mvMatrix, translation);
    });
 
 } 
@@ -132,7 +132,7 @@ function loadShader(gl, type, source) {
 
    gl.shaderSource(shader, source);
 
-   gl.compileShader(shader);
+   gl.compileShader(shader);  
 
    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
       alert('An error occurred compiling the shaders: ' + gl.getShaderInfoLog(shader));
