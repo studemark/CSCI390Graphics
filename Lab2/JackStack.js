@@ -4,17 +4,10 @@ class JackStack extends CompoundModel {
 
       const jack = new Jack(gl);
 
-      const jackT = mat4.create();
-      mat4.translate(jackT, jackT, [0, 2, 0]);
-      super.addChild(jack, jackT);
+      super.addChild(jack, mat4.translate(mat4.create(), mat4.create(), [0, 2, 0]));
 
-      const jack2T = mat4.create();
-      mat4.rotateY(jack2T, jack2T, rot);
-      super.addChild(jack, jack2T);
+      super.addChild(jack, mat4.rotateY(mat4.create(), mat4.create(), rot));
 
-      const jack3T = mat4.create();
-      mat4.translate(jack3T, jack3T, [0, -2, 0]);
-      mat4.rotateY(jack3T, jack3T, rot*2);
-      super.addChild(jack, jack3T);
+      super.addChild(jack, mat4.rotateY(mat4.create(), mat4.translate(mat4.create(), mat4.create(), [0, -2, 0]), rot*2));
    }
 }
