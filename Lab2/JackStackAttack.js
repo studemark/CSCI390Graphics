@@ -17,6 +17,5 @@ class JackStackAttack extends CompoundModel {
       mat4.translate(transformR, transformR, [2, 0, 0]);
       mat4.scale(transformR, transformR, [0.5, 0.5, 0.5]);
       super.addChild(jackStackR, transformR);
-
    }
 }

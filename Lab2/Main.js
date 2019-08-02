@@ -10,24 +10,20 @@ function main() {
       return;
    }
 
-   const vsSource = `
-   attribute vec4 positions;
-   attribute vec4 color;
-   uniform mat4 viewMatrix;
-   uniform mat4 projectionMatrix;
-   varying lowp vec4 vColor;
-   void main(void) {
-      gl_Position = projectionMatrix * viewMatrix * positions;
-      vColor = color;
-   }
-   `;
+   const vsSourceUrl = "/Lab2/VtxShader.glsl";
+   const fsSourceUrl = "/Lab2/FrgShader.glsl";
 
-   const fsSource = `
-   varying lowp vec4 vColor;
-   void main(void) {
-      gl_FragColor = vColor;
-   }
-   `;
+   function getSource(url) {
+      var req = new XMLHttpRequest();
+
+      req.open("GET", url, false);      
+      req.send(null);
+      
+      return (req.status == 200) ? req.responseText : null;
+   };
+
+   const vsSource = getSource(vsSourceUrl);
+   const fsSource = getSource(fsSourceUrl);
 
    const programInfo = makeShaderProgram(gl, vsSource, fsSource, ['positions', 'color'], ['projectionMatrix', 'viewMatrix']);
 
@@ -53,13 +49,13 @@ function main() {
       
       
       if (event.code === "ArrowDown" ) {
-         if (lat <= -Math.PI/2) {
+         if (lat > -Math.PI/2) {
             lat -= Math.PI/10;
          }
       }
       
       else if (event.code === "ArrowUp" ) {
-         if (lat <= Math.PI/2) {
+         if (lat < Math.PI/2) {
             lat += Math.PI/10;
          }
       }
@@ -102,18 +98,6 @@ function drawScene(gl, programInfo, jack, time, mvMatrix) {
    const projectionMatrix = mat4.create();
 
    mat4.perspective(projectionMatrix, fieldOfView, aspect, zNear, zFar);
-
-   /* mat4.translate(mvMatrix,     // destination matrix
-    mvMatrix,     // matrix to translate
-    [0.0, 0.0, -10.0]);  // amount to translate */
-   /* mat4.rotate(mvMatrix,  // destination matrix
-    mvMatrix,  // matrix to rotate
-    cubeRotation * Math.PI / 4,     // amount to rotate in radians
-    [0, 0, 1]);       // axis to rotate around (Z)
-   mat4.rotate(mvMatrix,  // destination matrix
-    mvMatrix,  // matrix to rotate
-    cubeRotation * Math.PI / 4,// amount to rotate in radians
-    [1, 1, 0]);       // axis to rotate around (Y) */
    
    gl.useProgram(programInfo.program);
 
@@ -123,8 +107,6 @@ function drawScene(gl, programInfo, jack, time, mvMatrix) {
     projectionMatrix); 
 
    jack.render(gl, programInfo, mvMatrix);
-
-   //cubeRotation = time;
 }
 
 function loadShader(gl, type, source) {
@@ -139,6 +121,5 @@ function loadShader(gl, type, source) {
       gl.deleteShader(shader);
       return null;
    }
-
    return shader;
 }
