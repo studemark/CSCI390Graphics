@@ -43,9 +43,8 @@ class LeafModel {
        prgInfo.ufmLocs.viewMatrix,
        false,
        mvMatrix);
-       const vertexCount = 36;
-       const type = gl.UNSIGNED_SHORT;
-       const offset = 0;
-       gl.drawElements(gl.TRIANGLES, vertexCount, type, offset);
+
+      const vertexCount = this.indices.length;
+      gl.drawElements(gl.TRIANGLES, vertexCount, gl.UNSIGNED_SHORT, 0);
    }
 }

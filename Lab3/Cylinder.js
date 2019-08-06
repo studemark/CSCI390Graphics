@@ -5,19 +5,37 @@ class Cylinder extends LeafModel {
       const positionBuffer = gl.createBuffer();
       gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
-      this.postitions = [];
-      this.indices = [];
       const colors = [];
-      const sides = 4;
+      const sides = 60;
 
-      for (var i = 0; i < Math.PI*2; i += Math.PI*2/sides) {
-         this.postitions.push(Math.cos(i), 1, Math.sin(i)); //top
-         this.postitions.push(Math.cos(i), 1, Math.sin(i)); //top
-         this.postitions.push(Math.cos(i), -1, Math.sin(i));//bottom
-         this.postitions.push(Math.cos(i), -1, Math.sin(i));//bottom 
+      var counter = 0;
+
+      for (var i = 0; i < sides; i++) {
+         this.positions.push(Math.cos(i*(Math.PI*2/sides)), 1, Math.sin(i*(Math.PI*2/sides))); //sides
+         colors.push(0, 1, 1, 1);
+      }
+      for (var i = 0; i < sides; i++) {
+         this.positions.push(Math.cos(i*(Math.PI*2/sides)), -1, Math.sin(i*(Math.PI*2/sides))); // sides
+         colors.push(1, 0, 0, 1);
       }
 
-      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.postitions), gl.STATIC_DRAW);
+      for (var i = 0; i < sides; i++) {
+         this.positions.push(Math.cos(i*(Math.PI*2/sides)), 1, Math.sin(i*(Math.PI*2/sides))); //top
+         colors.push(0, 1, 1, 1);
+      }
+      for (var i = 0; i < sides; i++) {
+         this.positions.push(Math.cos(i*(Math.PI*2/sides)), -1, Math.sin(i*(Math.PI*2/sides))); //bottom
+         colors.push(1, 0, 0, 1);
+      }
+
+      this.positions.push(0, 1, 0);//northpole
+      colors.push(0, 1, 1, 1);
+      this.positions.push(0, -1, 0);//southpole
+      colors.push(1, 0, 0, 1);
+
+      console.log(counter);
+      console.log(this.positions);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.positions), gl.STATIC_DRAW);
 
       const colorBuffer = gl.createBuffer();
       gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
@@ -25,13 +43,20 @@ class Cylinder extends LeafModel {
 
       const indexBuffer = gl.createBuffer();
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
-
-      //indices go here
+      
+      //indices for the sides
       for (var i = 0; i < sides; i++) {
-         this.indices.push(i, i+1, sides+i);
-         this.indices.push(i+1, sides+i, sides+1+i);
+         this.indices.push(i, (i+1)%sides, sides+i);
+         this.indices.push((i+1)%sides, sides+i, ((i+1)%sides)+sides);
       }
-
+      //indices for the top
+      for (var i = sides*2; i < sides*3; i++) {
+         this.indices.push(i, sides*4, ((i+1)%sides)+sides*2);
+      }
+      //indices for the bottom
+      for (var i = sides*3; i < sides*4; i++) {
+         this.indices.push(i, sides*4+1, ((i+1)%sides)+sides*3);
+      }
       console.log(this.indices);
 
       gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this.indices), gl.STATIC_DRAW);

@@ -9,8 +9,8 @@ function main() {
       alert('Unable to initialize WebGL. Your browser or machine may not support it.');
       return;
    }
-   const vsSourceUrl = "/Lab2/VtxShader.glsl";
-   const fsSourceUrl = "/Lab2/FrgShader.glsl";
+   const vsSourceUrl = "/Lab3/VtxShader.glsl";
+   const fsSourceUrl = "/Lab3/FrgShader.glsl";
    function getSource(url) {
       var req = new XMLHttpRequest();
       req.open("GET", url, false);      
@@ -22,12 +22,13 @@ function main() {
    const fsSource = getSource(fsSourceUrl);
    const programInfo = makeShaderProgram(gl, vsSource, fsSource, ['positions', 'color'], ['projectionMatrix', 'viewMatrix']);
    const mvMatrix = mat4.create();
-   const cylinder = new Cylinder(gl);
+
+   const cylJack = new JackStackAttack(gl);
    
    function doFrame(now) {
       now *= 0.001;  // convert to seconds
       
-      drawScene(gl, programInfo, cylinder, now, mvMatrix);
+      drawScene(gl, programInfo, cylJack, now, mvMatrix);
       
       requestAnimationFrame(doFrame);
    }
