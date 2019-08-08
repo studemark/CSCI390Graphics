@@ -1,7 +1,9 @@
 function makeShaderProgram(gl, vsSource, fsSource, attNames, ufmNames) {
+
    const vertexShader = loadShader(gl, gl.VERTEX_SHADER, vsSource);
    const fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fsSource);
    const shaderProgram = gl.createProgram();
+   
    gl.attachShader(shaderProgram, vertexShader);
    gl.attachShader(shaderProgram, fragmentShader);
    gl.linkProgram(shaderProgram);
@@ -11,12 +13,12 @@ function makeShaderProgram(gl, vsSource, fsSource, attNames, ufmNames) {
    }
 
    var attLocs = {};
-   attNames.forEach(function(name){
+   attNames.forEach(function(name) {
       attLocs[name] = gl.getAttribLocation(shaderProgram, name);
    });
 
    var ufmLocs = {};
-   ufmNames.forEach(function(name){
+   ufmNames.forEach(function(name) {
       ufmLocs[name] = gl.getUniformLocation(shaderProgram, name);
    });
 

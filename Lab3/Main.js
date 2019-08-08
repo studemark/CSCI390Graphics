@@ -9,8 +9,8 @@ function main() {
       alert('Unable to initialize WebGL. Your browser or machine may not support it.');
       return;
    }
-   const vsSourceUrl = "/Lab3/VtxShader.glsl";
-   const fsSourceUrl = "/Lab3/FrgShader.glsl";
+   const vsSourceUrl = "/Lab3/GouraudVrtShader.glsl";
+   const fsSourceUrl = "/Lab3/GouraudFrgShader.glsl";
    function getSource(url) {
       var req = new XMLHttpRequest();
       req.open("GET", url, false);      
@@ -18,9 +18,10 @@ function main() {
       return (req.status == 200) ? req.responseText : null;
    };
 
+   const globalAmbient = [0.2, 0.2, 0.2, 1.0];
    const vsSource = getSource(vsSourceUrl);
    const fsSource = getSource(fsSourceUrl);
-   const programInfo = makeShaderProgram(gl, vsSource, fsSource, ['positions', 'color'], ['projectionMatrix', 'viewMatrix']);
+   const programInfo = makeShaderProgram(gl, vsSource, fsSource, ['position', 'normal'], ['globalAmbient', 'light', 'material', 'mvMatrix', 'projMatrix', 'normMatrix']);
    const mvMatrix = mat4.create();
 
    const cylJack = new JackStackAttack(gl);
@@ -28,7 +29,7 @@ function main() {
    function doFrame(now) {
       now *= 0.001;  // convert to seconds
       
-      drawScene(gl, programInfo, cylJack, now, mvMatrix);
+      drawScene(gl, programInfo, cylJack, now, mvMatrix, globalAmbient);
       
       requestAnimationFrame(doFrame);
    }
@@ -38,6 +39,7 @@ function main() {
    var lng = 0;
    var r = -10;
    mat4.translate(mvMatrix, mat4.create(), [0, 0, r]);
+
    document.addEventListener("keydown", event => {
       if (event.code === "ArrowDown" ) {
          if (lat > -Math.PI/2) {
@@ -61,34 +63,39 @@ function main() {
       else if (event.code === "KeyG") {
          r += 0.1;
       }
+
       mat4.translate(mvMatrix, mat4.create(), [0, 0, r]);
       mat4.rotate(mvMatrix, mvMatrix, lat, [1, 0, 0]);
       mat4.rotate(mvMatrix, mvMatrix, lng, [0, 1, 0]);
    });
 } 
 
-function drawScene(gl, programInfo, object, time, mvMatrix) {
+function drawScene(gl, programInfo, object, time, mvMatrix, ambient) {
    gl.clearColor(0.0, 0.0, 0.0, 1.0);  
    gl.clearDepth(1.0);                 
    gl.enable(gl.DEPTH_TEST);           
    gl.depthFunc(gl.LEQUAL);            
    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
    const fieldOfView = 45 * Math.PI / 180;
    const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
    const zNear = 0.1;
    const zFar = 100.0;
    const projectionMatrix = mat4.create();
+
    mat4.perspective(projectionMatrix, fieldOfView, aspect, zNear, zFar);
    gl.useProgram(programInfo.program);
    gl.uniformMatrix4fv(
     programInfo.ufmLocs.projectionMatrix,
     false,
     projectionMatrix); 
+   gl.uniform4fv(programInfo.ufmLocs.globalAmbient, ambient);
    object.render(gl, programInfo, mvMatrix);
 }
 
 function loadShader(gl, type, source) {
    const shader = gl.createShader(type);
+
    gl.shaderSource(shader, source);
    gl.compileShader(shader);
    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {

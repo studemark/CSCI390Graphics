@@ -8,8 +8,6 @@ class Cylinder extends LeafModel {
       const colors = [];
       const sides = 60;
 
-      var counter = 0;
-
       for (var i = 0; i < sides; i++) {
          this.positions.push(Math.cos(i*(Math.PI*2/sides)), 1, Math.sin(i*(Math.PI*2/sides))); //sides
          colors.push(0, 1, 1, 1);
@@ -33,8 +31,6 @@ class Cylinder extends LeafModel {
       this.positions.push(0, -1, 0);//southpole
       colors.push(1, 0, 0, 1);
 
-      console.log(counter);
-      console.log(this.positions);
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.positions), gl.STATIC_DRAW);
 
       const colorBuffer = gl.createBuffer();
