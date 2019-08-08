@@ -90,7 +90,7 @@ function drawScene(gl, programInfo, object, time, mvMatrix, ambient) {
     false,
     projectionMatrix); 
    gl.uniform4fv(programInfo.ufmLocs.globalAmbient, ambient);
-   object.render(gl, programInfo, mvMatrix);
+   object.render(gl, programInfo, mvMatrix, );
 }
 
 function loadShader(gl, type, source) {

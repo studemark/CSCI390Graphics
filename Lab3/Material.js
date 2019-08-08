@@ -7,7 +7,11 @@ class Material {
    }
 
    setUniform(gl, prgInfo, name) {
-      gl.uniform4f(prgInfo.ufmLocs[name], this.ambient, this.diffuse, this.specular, this.shininess);
+      //console.log(prgInfo.ufmLocs[name]);
+      gl.uniformMatrix4fv(prgInfo.ufmLocs[name], false, this.ambient);
+      gl.uniformMatrix4fv(prgInfo.ufmLocs[name], false, this.diffuse);
+      gl.uniformMatrix4fv(prgInfo.ufmLocs[name], false, this.specular); 
+      gl.uniform1f(prgInfo.ufmLocs[name], this.shininess);
    }
 }
 Material.gold = new Material (

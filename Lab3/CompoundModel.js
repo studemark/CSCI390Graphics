@@ -1,6 +1,7 @@
 class CompoundModel { 
    constructor() {
       this.submodels = [];
+      this.material = Material.gold;
    }
 
    addChild(model, transform) {
@@ -13,5 +14,6 @@ class CompoundModel {
          mat4.multiply(finalTransform, mvMatrix, models[1]);
          models[0].render(gl, prgInfo, finalTransform);
       }
+      this.material.setUniform(gl, prgInfo, "gold");
    }
 }

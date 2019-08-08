@@ -3,6 +3,7 @@ class LeafModel {
       this.positions = [];
       this.indices = [];
       this.properties = {};
+      this.material = Material.gold;
    }
 
    render(gl, prgInfo, mvMatrix) {
@@ -38,6 +39,7 @@ class LeafModel {
             gl.enableVertexAttribArray(prgInfo.attLocs[prop]);
          }
       }
+      this.material.setUniform(gl, prgInfo, "gold");
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
       gl.uniformMatrix4fv(
        prgInfo.ufmLocs.viewMatrix,
