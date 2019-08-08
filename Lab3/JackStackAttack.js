@@ -1,6 +1,6 @@
 class JackStackAttack extends CompoundModel {
    constructor(gl) {
-      super();
+      super(Material.gold);
 
       const jackStackL = new JackStack(gl, 120 * Math.PI/180);
       const jackStackM = new JackStack(gl, Math.PI/2);

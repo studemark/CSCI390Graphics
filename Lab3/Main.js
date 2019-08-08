@@ -21,15 +21,15 @@ function main() {
    const globalAmbient = [0.2, 0.2, 0.2, 1.0];
    const vsSource = getSource(vsSourceUrl);
    const fsSource = getSource(fsSourceUrl);
-   const programInfo = makeShaderProgram(gl, vsSource, fsSource, ['position', 'normal'], ['globalAmbient', 'light', 'material', 'mvMatrix', 'projMatrix', 'normMatrix']);
+   const programInfo = makeShaderProgram(gl, vsSource, fsSource, ['position', 'normal'], ['globalAmbient', 'light.ambient', 'light.diffuse', 'light.specular', 'light.position', 'material.ambient', 'material.diffuse', 'material.specular', 'material.shininess', 'mvMatrix', 'projMatrix', 'normMatrix']);
    const mvMatrix = mat4.create();
 
-   const cylJack = new JackStackAttack(gl);
+   const object = new Cylinder(gl);
    
    function doFrame(now) {
       now *= 0.001;  // convert to seconds
       
-      drawScene(gl, programInfo, cylJack, now, mvMatrix, globalAmbient);
+      drawScene(gl, programInfo, object, now, mvMatrix, globalAmbient);
       
       requestAnimationFrame(doFrame);
    }
@@ -71,7 +71,7 @@ function main() {
 } 
 
 function drawScene(gl, programInfo, object, time, mvMatrix, ambient) {
-   gl.clearColor(0.0, 0.0, 0.0, 1.0);  
+   gl.clearColor(0.529, 0.808, 0.980, 1.0);  
    gl.clearDepth(1.0);                 
    gl.enable(gl.DEPTH_TEST);           
    gl.depthFunc(gl.LEQUAL);            
@@ -89,7 +89,9 @@ function drawScene(gl, programInfo, object, time, mvMatrix, ambient) {
     programInfo.ufmLocs.projectionMatrix,
     false,
     projectionMatrix); 
+   Light.l1.setUniform(gl, programInfo, 'light');
    gl.uniform4fv(programInfo.ufmLocs.globalAmbient, ambient);
+   //console.log(programInfo.ufmLocs.globalAmbient);
    object.render(gl, programInfo, mvMatrix, );
 }
 

@@ -6,7 +6,7 @@ class Cylinder extends LeafModel {
       gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
       const colors = [];
-      const sides = 60;
+      const sides = 4;
 
       for (var i = 0; i < sides; i++) {
          this.positions.push(Math.cos(i*(Math.PI*2/sides)), 1, Math.sin(i*(Math.PI*2/sides))); //sides
@@ -53,6 +53,7 @@ class Cylinder extends LeafModel {
       for (var i = sides*3; i < sides*4; i++) {
          this.indices.push(i, sides*4+1, ((i+1)%sides)+sides*3);
       }
+      console.log(this.positions);
       console.log(this.indices);
 
       gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this.indices), gl.STATIC_DRAW);
