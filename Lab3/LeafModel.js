@@ -1,9 +1,9 @@
 class LeafModel {
-   constructor() {
+   constructor(mat = null) {
       this.positions = [];
       this.indices = [];
       this.properties = {};
-      this.material = Material.gold;
+      this.material = mat;
    }
 
    render(gl, prgInfo, mvMatrix) {
@@ -39,7 +39,8 @@ class LeafModel {
             gl.enableVertexAttribArray(prgInfo.attLocs[prop]);
          }
       }
-      this.material.setUniform(gl, prgInfo, "gold");
+      if (mat != null)
+         this.material.setUniform(gl, prgInfo, mat);
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
       gl.uniformMatrix4fv(
        prgInfo.ufmLocs.viewMatrix,

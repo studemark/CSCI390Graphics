@@ -7,7 +7,7 @@ class Material {
    }
 
    setUniform(gl, prgInfo, name) {
-      //console.log(prgInfo.ufmLocs[name]);
+      console.log(prgInfo.ufmLocs[name]);
       gl.uniformMatrix4fv(prgInfo.ufmLocs[name], false, this.ambient);
       gl.uniformMatrix4fv(prgInfo.ufmLocs[name], false, this.diffuse);
       gl.uniformMatrix4fv(prgInfo.ufmLocs[name], false, this.specular); 
