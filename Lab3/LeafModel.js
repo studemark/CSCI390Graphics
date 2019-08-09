@@ -51,4 +51,12 @@ class LeafModel {
       const vertexCount = this.indices.length;
       gl.drawElements(gl.TRIANGLES, vertexCount, gl.UNSIGNED_SHORT, 0);
    }
+
+   makeVBO(gl, data) {
+      console.log(data);
+      const buffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.STATIC_DRAW);
+      return buffer;
+   }
 }

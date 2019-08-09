@@ -21,7 +21,11 @@ function main() {
    const globalAmbient = [0.2, 0.2, 0.2, 1.0];
    const vsSource = getSource(vsSourceUrl);
    const fsSource = getSource(fsSourceUrl);
-   const programInfo = makeShaderProgram(gl, vsSource, fsSource, ['position', 'normal'], ['globalAmbient', 'light.ambient', 'light.diffuse', 'light.specular', 'light.position', 'material.ambient', 'material.diffuse', 'material.specular', 'material.shininess', 'mvMatrix', 'projMatrix', 'normMatrix']);
+   const programInfo = makeShaderProgram(gl, vsSource, fsSource, ['position', 'normal'], 
+    ['globalAmbient', 'light.ambient', 'light.diffuse', 'light.specular', 'light.position', 
+    'material.ambient', 'material.diffuse', 'material.specular', 'material.shininess', 
+    'mvMatrix', 'projMatrix', 'normMatrix']);
+   
    const mvMatrix = mat4.create();
 
    const object = new Cylinder(gl);
@@ -92,7 +96,7 @@ function drawScene(gl, programInfo, object, time, mvMatrix, ambient) {
    Light.l1.setUniform(gl, programInfo, 'light');
    gl.uniform4fv(programInfo.ufmLocs.globalAmbient, ambient);
    //console.log(programInfo.ufmLocs.globalAmbient);
-   object.render(gl, programInfo, mvMatrix, );
+   object.render(gl, programInfo, mvMatrix);
 }
 
 function loadShader(gl, type, source) {
