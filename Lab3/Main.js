@@ -18,17 +18,16 @@ function main() {
       return (req.status == 200) ? req.responseText : null;
    };
 
-   const globalAmbient = [0.2, 0.2, 0.2, 1.0];
    const vsSource = getSource(vsSourceUrl);
    const fsSource = getSource(fsSourceUrl);
    const programInfo = makeShaderProgram(gl, vsSource, fsSource, ['position', 'normal'], 
-    ['globalAmbient', 'light.ambient', 'light.diffuse', 'light.specular', 'light.position', 
-    'material.ambient', 'material.diffuse', 'material.specular', 'material.shininess', 
-    'mvMatrix', 'projMatrix', 'normMatrix']);
+   ['globalAmbient', 'light.ambient', 'light.diffuse', 'light.specular', 'light.position', 
+   'material.ambient', 'material.diffuse', 'material.specular', 'material.shininess', 
+   'mvMatrix', 'projMatrix', 'normMatrix']);
    
    const mvMatrix = mat4.create();
-
    const object = new Cylinder(gl);
+   const globalAmbient = [0.2, 0.2, 0.2, 1.0];
    
    function doFrame(now) {
       now *= 0.001;  // convert to seconds
@@ -91,10 +90,10 @@ function drawScene(gl, programInfo, object, time, mvMatrix, ambient) {
    mat4.perspective(projectionMatrix, fieldOfView, aspect, zNear, zFar);
    gl.useProgram(programInfo.program);
    gl.uniformMatrix4fv(
-    programInfo.ufmLocs.projectionMatrix,
+    programInfo.ufmLocs.projMatrix,
     false,
     projectionMatrix);
-   Light.l1.setUniform(gl, programInfo, 'light');    
+   Light.l1.setUniform(gl, programInfo, "light");    
    gl.uniform4fv(programInfo.ufmLocs.globalAmbient, ambient);
    //console.log(programInfo.attLocs);
    //console.log(programInfo.ufmLocs);

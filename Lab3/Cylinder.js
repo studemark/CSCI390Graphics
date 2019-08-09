@@ -1,6 +1,6 @@
 class Cylinder extends LeafModel {
    constructor(gl) {
-      super(Material.gold);
+      super(Material.jade);
 
       const normals = [];
       const sides = 4;
