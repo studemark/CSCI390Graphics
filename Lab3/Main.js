@@ -76,6 +76,7 @@ function main() {
 
 function drawScene(gl, programInfo, object, time, mvMatrix, ambient) {
    gl.clearColor(0.529, 0.808, 0.980, 1.0);  
+   //gl.clearColor(0.0, 0.0, 0.0, 1.0);
    gl.clearDepth(1.0);                 
    gl.enable(gl.DEPTH_TEST);           
    gl.depthFunc(gl.LEQUAL);            
@@ -95,8 +96,8 @@ function drawScene(gl, programInfo, object, time, mvMatrix, ambient) {
     projectionMatrix);
    Light.l1.setUniform(gl, programInfo, 'light');    
    gl.uniform4fv(programInfo.ufmLocs.globalAmbient, ambient);
-   console.log(programInfo.attLocs);
-   console.log(programInfo.ufmLocs);
+   //console.log(programInfo.attLocs);
+   //console.log(programInfo.ufmLocs);
    object.render(gl, programInfo, mvMatrix);
 }
 

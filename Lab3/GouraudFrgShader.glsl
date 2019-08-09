@@ -29,6 +29,8 @@ uniform mat4 normMatrix;
 
 //  interpolate lighted color
 // (interpolation of gl_Position is automatic)
-void main(void) {	
-	gl_FragColor = varyingColor;
+void main(void) {
+	vec4 red;
+	red = vec4(1.0, 0.0, 0.0, 1.0);	
+	gl_FragColor = red;
 }

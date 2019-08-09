@@ -15,13 +15,13 @@ class LeafModel {
       const offset = 0;
       gl.bindBuffer(gl.ARRAY_BUFFER, this.positionBuffer);
       gl.vertexAttribPointer(
-       prgInfo.attLocs.positions,
+       prgInfo.attLocs.position,
        numComponents,
        type,
        normalize,
        stride,
        offset);
-      gl.enableVertexAttribArray(prgInfo.attLocs.positions);
+      gl.enableVertexAttribArray(prgInfo.attLocs.position);
       const propArray = Object.keys(this.properties);
       if (propArray[0]) {
          for (var i = 0; i < propArray.length; i++) {
@@ -44,7 +44,7 @@ class LeafModel {
          this.material.setUniform(gl, prgInfo, "material");        
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
       gl.uniformMatrix4fv(
-       prgInfo.ufmLocs.viewMatrix,
+       prgInfo.ufmLocs.mvMatrix,
        false,
        mvMatrix);
 
