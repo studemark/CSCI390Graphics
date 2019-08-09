@@ -92,10 +92,11 @@ function drawScene(gl, programInfo, object, time, mvMatrix, ambient) {
    gl.uniformMatrix4fv(
     programInfo.ufmLocs.projectionMatrix,
     false,
-    projectionMatrix); 
-   Light.l1.setUniform(gl, programInfo, 'light');
+    projectionMatrix);
+   Light.l1.setUniform(gl, programInfo, 'light');    
    gl.uniform4fv(programInfo.ufmLocs.globalAmbient, ambient);
-   //console.log(programInfo.ufmLocs.globalAmbient);
+   console.log(programInfo.attLocs);
+   console.log(programInfo.ufmLocs);
    object.render(gl, programInfo, mvMatrix);
 }
 

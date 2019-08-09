@@ -7,7 +7,6 @@ class Light {
    }
 
    setUniform(gl, prgInfo, name) {
-      //console.log(prgInfo.ufmLocs[name]);
       gl.uniform4fv(prgInfo.ufmLocs[name + '.ambient'], this.ambient);
       gl.uniform4fv(prgInfo.ufmLocs[name + '.diffuse'], this.diffuse);
       gl.uniform4fv(prgInfo.ufmLocs[name + '.specular'], this.specular);

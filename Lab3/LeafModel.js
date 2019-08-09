@@ -41,7 +41,7 @@ class LeafModel {
          }
       }
       if (this.material)
-         this.material.setUniform(gl, prgInfo, "material");
+         this.material.setUniform(gl, prgInfo, "material");        
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
       gl.uniformMatrix4fv(
        prgInfo.ufmLocs.viewMatrix,
@@ -53,7 +53,6 @@ class LeafModel {
    }
 
    makeVBO(gl, data) {
-      console.log(data);
       const buffer = gl.createBuffer();
       gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.STATIC_DRAW);

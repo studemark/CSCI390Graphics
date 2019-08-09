@@ -1,46 +1,36 @@
 class Cylinder extends LeafModel {
    constructor(gl) {
-      super();
+      super(Material.gold);
 
-      const colors = [];
       const normals = [];
       const sides = 4;
 
       for (var i = 0; i < sides; i++) {
          this.positions.push(Math.cos(i*(Math.PI*2/sides)), 1, Math.sin(i*(Math.PI*2/sides))); //sides
          normals.push(Math.cos(i*(Math.PI*2/sides)), 0, Math.sin(i*(Math.PI*2/sides)));
-         colors.push(0, 1, 1, 1);
       }
       for (var i = 0; i < sides; i++) {
          this.positions.push(Math.cos(i*(Math.PI*2/sides)), -1, Math.sin(i*(Math.PI*2/sides))); // sides
          normals.push(Math.cos(i*(Math.PI*2/sides)), 0, Math.sin(i*(Math.PI*2/sides)));
-         colors.push(1, 0, 0, 1);
       }
 
       for (var i = 0; i < sides; i++) {
          this.positions.push(Math.cos(i*(Math.PI*2/sides)), 1, Math.sin(i*(Math.PI*2/sides))); //top
          normals.push(0, 1, 0);
-         colors.push(0, 1, 1, 1);
       }
       for (var i = 0; i < sides; i++) {
          this.positions.push(Math.cos(i*(Math.PI*2/sides)), -1, Math.sin(i*(Math.PI*2/sides))); //bottom
          normals.push(0, -1, 0);
-         colors.push(1, 0, 0, 1);
       }
 
       this.positions.push(0, 1, 0);//northpole
       normals.push(0, 1, 0);
-      colors.push(0, 1, 1, 1);
       this.positions.push(0, -1, 0);//southpole
       normals.push(0, -1, 0);
-      colors.push(1, 0, 0, 1);
 
       const positionBuffer = this.makeVBO(gl, this.positions);
-      console.log(positionBuffer);
 
       const normBuffer = this.makeVBO(gl, normals);
-
-      const colorBuffer = this.makeVBO(gl, this.colors);
       
       //indices for the sides
       for (var i = 0; i < sides; i++) {
@@ -57,12 +47,11 @@ class Cylinder extends LeafModel {
       }
       console.log(this.positions);
       console.log(this.indices);
+      console.log(normals);
 
       const indexBuffer = gl.createBuffer();
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
       gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this.indices), gl.STATIC_DRAW);
-      console.log(positionBuffer);
-      console.log(normals);
       this.positionBuffer = positionBuffer;
       this.indexBuffer = indexBuffer;
       this.properties = {
@@ -71,12 +60,6 @@ class Cylinder extends LeafModel {
             buf : normBuffer,
             type : gl.FLOAT,
             numComponents : 3
-         },
-         color : {
-            vals : colors,
-            buf : colorBuffer,
-            type : gl.FLOAT,
-            numComponents : 4
          }
       }
    }
