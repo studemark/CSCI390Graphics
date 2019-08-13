@@ -29,27 +29,25 @@ function main() {
     'material.shininess', 
     'mvMatrix', 'projMatrix', 'normMatrix']);
 
-   console.log(gouraudPrg);
+   const phongPrg = new ShaderProg(gl, 
+      getSource("/Lab3/PhongVrtShader.glsl"), 
+      getSource("/Lab3/PhongFrgShader.glsl"), 
+      ['position', 'normal'], 
+      ['globalAmbient', 'light.ambient', 'light.diffuse', 'light.specular',
+      'light.position', 
+      'material.ambient', 'material.diffuse', 'material.specular', 
+      'material.shininess', 
+      'mvMatrix', 'projMatrix', 'normMatrix']);
    
    const mvMatrix = mat4.create();
    const object = new JackStackAttack(gl, Material.pearl, Material.jade, 
     Material.gold);
    
-   const globalAmbient = [0.2, 0.2, 0.2, 1.0];
-   
-   function doFrame(now) {
-      now *= 0.001;  // convert to seconds
-      
-      drawScene(gl, gouraudPrg, object, mvMatrix, globalAmbient);
-      
-      requestAnimationFrame(doFrame);
-   }
-   requestAnimationFrame(doFrame);
-   
    var lat = 0;
    var lng = 0;
    var r = -10;
    mat4.translate(mvMatrix, mat4.create(), [0, 0, r]);
+   var shaderProgram = gouraudPrg;
 
    document.addEventListener("keydown", event => {
       if (event.code === "ArrowDown" ) {
@@ -68,17 +66,34 @@ function main() {
       else if (event.code === "ArrowRight" ) {
          lng -= Math.PI/10;
       }
-      else if (event.code === "KeyF") {
+      else if (event.code === "KeyA") {
          r -= 0.1;
       }
-      else if (event.code === "KeyG") {
+      else if (event.code === "KeyS") {
          r += 0.1;
+      }
+      else if (event.code === "KeyF") {
+         shaderProgram = phongPrg;
+      }
+      else if (event.code === "KeyG") {
+         shaderProgram = gouraudPrg;
       }
 
       mat4.translate(mvMatrix, mat4.create(), [0, 0, r]);
       mat4.rotate(mvMatrix, mvMatrix, lat, [1, 0, 0]);
       mat4.rotate(mvMatrix, mvMatrix, lng, [0, 1, 0]);
    });
+
+   const globalAmbient = [0.2, 0.2, 0.2, 1.0];
+   
+   function doFrame(now) {
+      now *= 0.001;  // convert to seconds
+      
+      drawScene(gl, shaderProgram, object, mvMatrix, globalAmbient);
+      
+      requestAnimationFrame(doFrame);
+   }
+   requestAnimationFrame(doFrame);
 } 
 
 function drawScene(gl, shaderPrg, object, mvMatrix, ambient) {
