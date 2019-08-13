@@ -6,20 +6,26 @@ class Cylinder extends LeafModel {
       const sides = 60;
 
       for (var i = 0; i < sides; i++) {
-         this.positions.push(Math.cos(i*(Math.PI*2/sides)), 1, Math.sin(i*(Math.PI*2/sides))); //sides
-         normals.push(Math.cos(i*(Math.PI*2/sides)), 0, Math.sin(i*(Math.PI*2/sides)));
+         this.positions.push(Math.cos(i*(Math.PI*2/sides)), 1, 
+          Math.sin(i*(Math.PI*2/sides))); //sides
+         normals.push(Math.cos(i*(Math.PI*2/sides)), 0, 
+          Math.sin(i*(Math.PI*2/sides)));
       }
       for (var i = 0; i < sides; i++) {
-         this.positions.push(Math.cos(i*(Math.PI*2/sides)), -1, Math.sin(i*(Math.PI*2/sides))); // sides
-         normals.push(Math.cos(i*(Math.PI*2/sides)), 0, Math.sin(i*(Math.PI*2/sides)));
+         this.positions.push(Math.cos(i*(Math.PI*2/sides)), -1, 
+          Math.sin(i*(Math.PI*2/sides))); // sides
+         normals.push(Math.cos(i*(Math.PI*2/sides)), 0, 
+          Math.sin(i*(Math.PI*2/sides)));
       }
 
       for (var i = 0; i < sides; i++) {
-         this.positions.push(Math.cos(i*(Math.PI*2/sides)), 1, Math.sin(i*(Math.PI*2/sides))); //top
+         this.positions.push(Math.cos(i*(Math.PI*2/sides)), 1, 
+          Math.sin(i*(Math.PI*2/sides))); //top
          normals.push(0, 1, 0);
       }
       for (var i = 0; i < sides; i++) {
-         this.positions.push(Math.cos(i*(Math.PI*2/sides)), -1, Math.sin(i*(Math.PI*2/sides))); //bottom
+         this.positions.push(Math.cos(i*(Math.PI*2/sides)), -1, 
+          Math.sin(i*(Math.PI*2/sides))); //bottom
          normals.push(0, -1, 0);
       }
 
