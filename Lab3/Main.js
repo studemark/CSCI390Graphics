@@ -23,14 +23,17 @@ function main() {
     getSource("/Lab3/GouraudVrtShader.glsl"), 
     getSource("/Lab3/GouraudFrgShader.glsl"), 
     ['position', 'normal'], 
-    ['globalAmbient', 
-    'light.ambient', 'light.diffuse', 'light.specular', 'light.position', 
+    ['globalAmbient', 'light.ambient', 'light.diffuse', 'light.specular',
+    'light.position', 
     'material.ambient', 'material.diffuse', 'material.specular', 
     'material.shininess', 
     'mvMatrix', 'projMatrix', 'normMatrix']);
+
+   console.log(gouraudPrg);
    
    const mvMatrix = mat4.create();
-   const object = new Cylinder(gl, Material.gold);
+   const object = new JackStackAttack(gl, Material.pearl, Material.jade, 
+    Material.gold);
    
    const globalAmbient = [0.2, 0.2, 0.2, 1.0];
    
@@ -95,23 +98,9 @@ function drawScene(gl, shaderPrg, object, mvMatrix, ambient) {
    mat4.perspective(projectionMatrix, fieldOfView, aspect, zNear, zFar);
    shaderPrg.use();
    shaderPrg.uniformMatrix4fv("projMatrix", projectionMatrix);
-   Light.l1.setUniform(gl, shaderPrg.program, "light");    
+   Light.l1.setUniform(shaderPrg, "light");    
    shaderPrg.uniform4fv("globalAmbient", ambient);
    //console.log(programInfo.attLocs);
    //console.log(programInfo.ufmLocs);
    object.render(gl, shaderPrg, mvMatrix);
-}
-
-function loadShader(gl, type, source) {
-   const shader = gl.createShader(type);
-
-   gl.shaderSource(shader, source);
-   gl.compileShader(shader);
-   if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-      alert('An error occurred compiling the shaders: ' + 
-       gl.getShaderInfoLog(shader));
-      gl.deleteShader(shader);
-      return null;
-   }
-   return shader;
 }

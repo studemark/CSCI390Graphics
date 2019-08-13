@@ -6,11 +6,11 @@ class Light {
       this.position = position;
    }
 
-   setUniform(gl, prgInfo, name) {
-      gl.uniform4fv(prgInfo.ufmLocs[name + '.ambient'], this.ambient);
-      gl.uniform4fv(prgInfo.ufmLocs[name + '.diffuse'], this.diffuse);
-      gl.uniform4fv(prgInfo.ufmLocs[name + '.specular'], this.specular);
-      gl.uniform3fv(prgInfo.ufmLocs[name + '.position'], this.position);
+   setUniform(prgInfo, name) {
+      prgInfo.uniform4fv(`${name}.ambient`, this.ambient);
+      prgInfo.uniform4fv(`${name}.diffuse`, this.diffuse);
+      prgInfo.uniform4fv(`${name}.specular`, this.specular);
+      prgInfo.uniform3fv(`${name}.position`, this.position);
    }
 }
 

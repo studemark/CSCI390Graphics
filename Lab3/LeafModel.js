@@ -9,14 +9,14 @@ class LeafModel {
 
    render(gl, prgInfo, mvMatrix) {
       prgInfo.setAtt("position", this.positionBuffer, 3, gl.FLOAT);
-      const propArray = Object.keys(this.properties);
 
-      propArray.forEach((prop) => {
-         prgInfo.setAtt(this.properties[prop], this.properties[prop].buf, this.properties[prop].numComponents, this.properties[prop].type);
+      Object.keys(this.properties).forEach((prop) => {
+         prgInfo.setAtt(prop, this.properties[prop].buf, this.properties[prop].numComponents, this.properties[prop].type);
       });
 
       if (this.material)
-         this.material.setUniform(gl, prgInfo.program, "material");        
+         this.material.setUniform(prgInfo, "material");     
+
       prgInfo.setIndices(this.indexBuffer);
       prgInfo.uniformMatrix4fv("mvMatrix", mvMatrix);
       const invTrMat = mat4.transpose(mat4.create(), 

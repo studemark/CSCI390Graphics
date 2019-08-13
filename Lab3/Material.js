@@ -6,12 +6,11 @@ class Material {
       this.shininess = shininess;
    }
 
-   setUniform(gl, prgInfo, name) {
-      //console.log(prgInfo.ufmLocs[name + '.ambient']);
-      gl.uniform4fv(prgInfo.ufmLocs[name + '.ambient'], this.ambient);
-      gl.uniform4fv(prgInfo.ufmLocs[name + '.diffuse'], this.diffuse);
-      gl.uniform4fv(prgInfo.ufmLocs[name + '.specular'], this.specular); 
-      gl.uniform1f(prgInfo.ufmLocs[name + '.shininess'], this.shininess);
+   setUniform(prgInfo, name) {
+      prgInfo.uniform4fv(`${name}.ambient`, this.ambient);
+      prgInfo.uniform4fv(`${name}.diffuse`, this.diffuse);
+      prgInfo.uniform4fv(`${name}.specular`, this.specular);
+      prgInfo.uniform1f(`${name}.shininess`, this.shininess);
    }
 }
 Material.gold = new Material (

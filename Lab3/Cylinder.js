@@ -45,9 +45,6 @@ class Cylinder extends LeafModel {
       for (var i = sides*3; i < sides*4; i++) {
          this.indices.push(i, sides*4+1, ((i+1)%sides)+sides*3);
       }
-      console.log(this.positions);
-      console.log(this.indices);
-      console.log(normals);
 
       const indexBuffer = gl.createBuffer();
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
