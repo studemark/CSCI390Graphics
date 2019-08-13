@@ -1,9 +1,9 @@
 class Cylinder extends LeafModel {
-   constructor(gl) {
-      super(Material.jade);
+   constructor(gl, mat) {
+      super(mat);
 
       const normals = [];
-      const sides = 4;
+      const sides = 60;
 
       for (var i = 0; i < sides; i++) {
          this.positions.push(Math.cos(i*(Math.PI*2/sides)), 1, Math.sin(i*(Math.PI*2/sides))); //sides

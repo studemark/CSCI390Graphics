@@ -1,6 +1,6 @@
 //#version 430
 
-precision highp float;
+precision mediump float;
 
 varying vec4 varyingColor;
 

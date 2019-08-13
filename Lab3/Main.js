@@ -3,14 +3,15 @@ main();
 
 function main() {
    const canvas = document.querySelector('#glcanvas');
-   const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+   const gl = canvas.getContext('webgl') || 
+    canvas.getContext('experimental-webgl');
 
    if (!gl) {
-      alert('Unable to initialize WebGL. Your browser or machine may not support it.');
+      alert('Unable to initialize WebGL.' +
+       'Your browser or machine may not support it.');
       return;
    }
-   const vsSourceUrl = "/Lab3/GouraudVrtShader.glsl";
-   const fsSourceUrl = "/Lab3/GouraudFrgShader.glsl";
+
    function getSource(url) {
       var req = new XMLHttpRequest();
       req.open("GET", url, false);      
@@ -18,21 +19,25 @@ function main() {
       return (req.status == 200) ? req.responseText : null;
    };
 
-   const vsSource = getSource(vsSourceUrl);
-   const fsSource = getSource(fsSourceUrl);
-   const programInfo = makeShaderProgram(gl, vsSource, fsSource, ['position', 'normal'], 
-   ['globalAmbient', 'light.ambient', 'light.diffuse', 'light.specular', 'light.position', 
-   'material.ambient', 'material.diffuse', 'material.specular', 'material.shininess', 
-   'mvMatrix', 'projMatrix', 'normMatrix']);
+   const gouraudPrg = new ShaderProg(gl, 
+    getSource("/Lab3/GouraudVrtShader.glsl"), 
+    getSource("/Lab3/GouraudFrgShader.glsl"), 
+    ['position', 'normal'], 
+    ['globalAmbient', 
+    'light.ambient', 'light.diffuse', 'light.specular', 'light.position', 
+    'material.ambient', 'material.diffuse', 'material.specular', 
+    'material.shininess', 
+    'mvMatrix', 'projMatrix', 'normMatrix']);
    
    const mvMatrix = mat4.create();
-   const object = new Cylinder(gl);
+   const object = new Cylinder(gl, Material.gold);
+   
    const globalAmbient = [0.2, 0.2, 0.2, 1.0];
    
    function doFrame(now) {
       now *= 0.001;  // convert to seconds
       
-      drawScene(gl, programInfo, object, now, mvMatrix, globalAmbient);
+      drawScene(gl, gouraudPrg, object, mvMatrix, globalAmbient);
       
       requestAnimationFrame(doFrame);
    }
@@ -73,7 +78,7 @@ function main() {
    });
 } 
 
-function drawScene(gl, programInfo, object, time, mvMatrix, ambient) {
+function drawScene(gl, shaderPrg, object, mvMatrix, ambient) {
    gl.clearColor(0.529, 0.808, 0.980, 1.0);  
    //gl.clearColor(0.0, 0.0, 0.0, 1.0);
    gl.clearDepth(1.0);                 
@@ -88,16 +93,13 @@ function drawScene(gl, programInfo, object, time, mvMatrix, ambient) {
    const projectionMatrix = mat4.create();
 
    mat4.perspective(projectionMatrix, fieldOfView, aspect, zNear, zFar);
-   gl.useProgram(programInfo.program);
-   gl.uniformMatrix4fv(
-    programInfo.ufmLocs.projMatrix,
-    false,
-    projectionMatrix);
-   Light.l1.setUniform(gl, programInfo, "light");    
-   gl.uniform4fv(programInfo.ufmLocs.globalAmbient, ambient);
+   shaderPrg.use();
+   shaderPrg.uniformMatrix4fv("projMatrix", projectionMatrix);
+   Light.l1.setUniform(gl, shaderPrg.program, "light");    
+   shaderPrg.uniform4fv("globalAmbient", ambient);
    //console.log(programInfo.attLocs);
    //console.log(programInfo.ufmLocs);
-   object.render(gl, programInfo, mvMatrix);
+   object.render(gl, shaderPrg, mvMatrix);
 }
 
 function loadShader(gl, type, source) {
@@ -106,7 +108,8 @@ function loadShader(gl, type, source) {
    gl.shaderSource(shader, source);
    gl.compileShader(shader);
    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-      alert('An error occurred compiling the shaders: ' + gl.getShaderInfoLog(shader));
+      alert('An error occurred compiling the shaders: ' + 
+       gl.getShaderInfoLog(shader));
       gl.deleteShader(shader);
       return null;
    }

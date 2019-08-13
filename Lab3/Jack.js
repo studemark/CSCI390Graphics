@@ -1,8 +1,8 @@
 class Jack extends CompoundModel {
-   constructor(gl) {
-      super();
+   constructor(gl, mat) {
+      super(mat);
 
-      const object = new Cylinder(gl);
+      const object = new Cylinder(gl, mat);
 
       super.addChild(object, mat4.scale(mat4.create(), mat4.create(), [0.2, 1, 0.2]));
 

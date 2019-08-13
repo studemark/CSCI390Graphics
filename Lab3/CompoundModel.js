@@ -11,7 +11,7 @@ class CompoundModel {
 
    render(gl, prgInfo, mvMatrix) {
       if (this.material)
-         this.material.setUniform(gl, prgInfo, 'material');
+         this.material.setUniform(gl, prgInfo.program, 'material');
       const finalTransform = mat4.create();
       for (var models of this.submodels) {
          mat4.multiply(finalTransform, mvMatrix, models[1]);
