@@ -40,8 +40,7 @@ function main() {
       'mvMatrix', 'projMatrix', 'normMatrix']);
    
    const mvMatrix = mat4.create();
-   const object = new JackStackAttack(gl, Material.pearl, Material.jade, 
-    Material.gold);
+   const object = new Sphere(gl, Material.gold);
    
    var lat = 0;
    var lng = 0;

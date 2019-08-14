@@ -35,7 +35,6 @@ class Cylinder extends LeafModel {
       normals.push(0, -1, 0);
 
       const positionBuffer = this.makeVBO(gl, this.positions);
-
       const normBuffer = this.makeVBO(gl, normals);
       
       //indices for the sides
