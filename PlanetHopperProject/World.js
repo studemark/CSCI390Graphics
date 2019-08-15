@@ -2,7 +2,7 @@ class World extends Planets {
    constructor(scene) {
       this.newPlanet = new Planets();
 
-      for (;) {
+      for (;;) {
       scene.add(this.newPlanet);
       }
    }
