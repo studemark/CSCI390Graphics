@@ -1,6 +1,6 @@
-class World extends Planets {
+class World  {
    constructor(scene) {
-      this.newPlanet = new Planets();
+      this.newPlanet = new Planet();
 
       for (;;) {
       scene.add(this.newPlanet);
