@@ -53,7 +53,9 @@ class Cylinder extends LeafModel {
 
       const indexBuffer = gl.createBuffer();
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
-      gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(this.indices), gl.STATIC_DRAW);
+      gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, 
+       new Uint16Array(this.indices), 
+       gl.STATIC_DRAW);
       this.positionBuffer = positionBuffer;
       this.indexBuffer = indexBuffer;
       this.properties = {

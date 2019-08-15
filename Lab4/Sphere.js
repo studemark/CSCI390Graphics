@@ -1,36 +1,37 @@
 class Sphere extends LeafModel {
-   constructor(gl, mat) {
+   constructor(gl, latSteps, lngSteps, mat) {
       super(mat);
 
-      const numSlices = 4;
+      //const numSlices = 4;
+      const radius = 1;
       
-      for (var i = 0; i < numSlices; i++) {
-         this.positions.push(Math.cos(i*(Math.PI*2/numSlices)), 0, 
-          Math.sin(i*(Math.PI*2/numSlices)));
-          console.log("x: " + (Math.cos(i*(Math.PI*2/numSlices))) * (Math.cos(i*(Math.PI*2/numSlices))));
-          console.log("y: " + (Math.cos(i*(Math.PI*2/numSlices))) * (Math.sin(i*(Math.PI*2/numSlices))));
-          console.log("z: " + Math.sin(i*(Math.PI*2/numSlices)));
+      console.log("Rad per step: " + (Math.PI*2)/latSteps);
+      for (var lat = (Math.PI/2)-(Math.PI/lngSteps); 
+       lat > -Math.PI/2; lat-=((Math.PI)/lngSteps)) {         
+         for (var lng = 0; lng < Math.PI*2; lng+=((Math.PI*2)/latSteps)) {
+            this.positions.push( //Vertices
+             Math.cos(lng)*Math.cos(lat), 
+             Math.cos(lng)*Math.sin(lat),
+             Math.sin(lng));
+         }
       }
 
       
       this.positions.push(0, 1, 0); //northpole
       this.positions.push(0, -1, 0); //southpole
-
       const normals = this.positions;
 
       const positionBuffer = this.makeVBO(gl, this.positions);
       const normBuffer = this.makeVBO(gl, normals);
 
       //indices
-      for (var i = 0; i < numSlices; i++) {
-         this.indices.push(i, (i+1)%numSlices, numSlices); //top half
-      }
-      for (var i = 0; i < numSlices; i++) {
-         this.indices.push(i, (i+1)%numSlices, numSlices+1); //bottom half
+      for (var i = 0; i < latSteps; i++) {
+         for (var j = 1; j < lngSteps; j++) {
+            this.indices.push(i, (j+1), (j+1)%lngSteps);
+            //this.indices.push(i, (i+1)%numSlices, numSlices+1);
+         }
       }
 
-      console.log(Math.cos(1*(Math.PI*2/numSlices)));
-      console.log(Math.sin(1*(Math.PI*2/numSlices)));
       console.log(this.positions);
       console.log(this.indices);
 
