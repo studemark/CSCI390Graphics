@@ -6,8 +6,8 @@ class Planet extends THREE.Mesh {
             var material = new THREE.MeshBasicMaterial(
              {color: (Math.random() * 0xFFFFFF << 0).toString(16)});
             return {
-               geometry, 
-               material
+               geo: geometry, 
+               mat: material
             }
          },
 
@@ -15,9 +15,9 @@ class Planet extends THREE.Mesh {
             var geometry = new THREE.ConeGeometry();
             var material = new THREE.MeshBasicMaterial(
              {color: (Math.random() * 0xFFFFFF << 0).toString(16)});
-             return {
-               geometry, 
-               material
+            return {
+               geo: geometry, 
+               mat: material
             }
          },
 
@@ -25,9 +25,9 @@ class Planet extends THREE.Mesh {
             var geometry = new THREE.CylinderGeometry();
             var material = new THREE.MeshBasicMaterial(
              {color: (Math.random() * 0xFFFFFF << 0).toString(16)});
-             return {
-               geometry, 
-               material
+            return {
+               geo: geometry, 
+               mat: material
             }
          },
 
@@ -36,8 +36,8 @@ class Planet extends THREE.Mesh {
             var material = new THREE.MeshBasicMaterial(
              {color: (Math.random() * 0xFFFFFF << 0).toString(16)});
             return {
-               geometry, 
-               material
+               geo: geometry, 
+               mat: material
             }
          },
 
@@ -46,8 +46,8 @@ class Planet extends THREE.Mesh {
             var material = new THREE.MeshBasicMaterial(
              {color: (Math.random() * 0xFFFFFF << 0).toString(16)});
             return {
-               geometry, 
-               material
+               geo: geometry, 
+               mat: material
             }
          },
 
@@ -56,8 +56,8 @@ class Planet extends THREE.Mesh {
             var material = new THREE.MeshBasicMaterial(
              {color: (Math.random() * 0xFFFFFF << 0).toString(16)});
             return {
-               geometry, 
-               material
+               geo: geometry, 
+               mat: material
             }
          },
 
@@ -66,8 +66,8 @@ class Planet extends THREE.Mesh {
             var material = new THREE.MeshBasicMaterial(
              {color: (Math.random() * 0xFFFFFF << 0).toString(16)});
             return {
-               geometry, 
-               material
+               geo: geometry, 
+               mat: material
             }
          },
 
@@ -76,8 +76,8 @@ class Planet extends THREE.Mesh {
             var material = new THREE.MeshBasicMaterial(
              {color: (Math.random() * 0xFFFFFF << 0).toString(16)});
             return {
-               geometry, 
-               material
+               geo: geometry, 
+               mat: material
             }
          },
 
@@ -86,8 +86,8 @@ class Planet extends THREE.Mesh {
             var material = new THREE.MeshBasicMaterial(
              {color: (Math.random() * 0xFFFFFF << 0).toString(16)});
             return {
-               geometry, 
-               material
+               geo: geometry, 
+               mat: material
             }
          },
 
@@ -96,8 +96,8 @@ class Planet extends THREE.Mesh {
             var material = new THREE.MeshBasicMaterial(
              {color: (Math.random() * 0xFFFFFF << 0).toString(16)});
             return {
-               geometry, 
-               material
+               geo: geometry, 
+               mat: material
             }
          },
 
@@ -106,8 +106,8 @@ class Planet extends THREE.Mesh {
             var material = new THREE.MeshBasicMaterial(
              {color: (Math.random() * 0xFFFFFF << 0).toString(16)});
             return {
-               geometry, 
-               material
+               geo: geometry, 
+               mat: material
             }
          },
 
@@ -116,14 +116,14 @@ class Planet extends THREE.Mesh {
             var material = new THREE.MeshBasicMaterial(
              {color: (Math.random() * 0xFFFFFF << 0).toString(16)});
             return {
-               geometry, 
-               material
+               geo: geometry, 
+               mat: material
             }
          }
       ];
 
       var newShape = functionList[Math.floor(Math.random() * Math.floor(12))];
 
-      super(newShape[geometry], newShape[material]);
+      super(newShape[geo], newShape[mat]);
    }
 }

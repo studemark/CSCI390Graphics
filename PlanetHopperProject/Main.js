@@ -12,7 +12,7 @@ function main() {
    camera.position.z = 5;
 
    var scene = new THREE.Scene();
-   scene.add(ambient);
+   scene.add(ambLight);
    scene.add(pntLight);
    
 }
