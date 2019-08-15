@@ -12,7 +12,15 @@ function main() {
    camera.position.z = 5;
 
    var scene = new THREE.Scene();
-   scene.add(ambient);
+   scene.add(ambLight);
    scene.add(pntLight);
-   
+
+   /* for (var i = 0; i < 10; i++) {
+
+   } */
+   this.planet = new Planet();
+   scene.add(this.planet);
+
+   renderer.render(scene, camera);
 }
+main();
