@@ -9,7 +9,7 @@ function main() {
 
    var camera = new THREE.PerspectiveCamera(30, 
     window.innerWidth/window.innerHeight, 0.1, 1000);
-   camera.position.z = 5;
+   camera.position.z = 20;
 
    var scene = new THREE.Scene();
    scene.add(ambLight);
@@ -18,8 +18,9 @@ function main() {
    /* for (var i = 0; i < 10; i++) {
 
    } */
-   this.planet = new Planet();
-   scene.add(this.planet);
+   var planet = new Planet();
+   console.log(planet);
+   scene.add(planet);
 
    renderer.render(scene, camera);
 }

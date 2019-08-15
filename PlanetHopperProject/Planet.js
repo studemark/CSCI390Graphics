@@ -122,8 +122,10 @@ class Planet extends THREE.Mesh {
          }
       ];
 
+      console.log(Math.floor(Math.random() * Math.floor(12)));
+
       var newShape = functionList[Math.floor(Math.random() * Math.floor(12))];
 
-      super(newShape[geo], newShape[mat]);
+      super(newShape.geo, newShape.mat);
    }
 }
