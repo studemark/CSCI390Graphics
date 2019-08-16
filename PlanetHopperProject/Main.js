@@ -15,12 +15,10 @@ function main() {
    scene.add(ambLight);
    scene.add(pntLight);
 
-   /* for (var i = 0; i < 10; i++) {
-
-   } */
-   var planet = new Planet();
-   console.log(planet);
-   scene.add(planet);
+   for (var i = 0; i < 10; i++) {
+      var planet = new Planet();
+      scene.add(planet);
+   } 
 
    renderer.render(scene, camera);
 }
