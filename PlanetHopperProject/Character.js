@@ -50,5 +50,17 @@ class Character extends THREE.Group {
        var headPhonesMat = new THREE.MeshPhongMaterial({color: 0xFF0000});
        this.add(new THREE.Mesh(headPhones, headPhonesMat).translateOnAxis(new THREE.Vector3(1, 0, 0), -0.5));
        this.add(new THREE.Mesh(headPhones, headPhonesMat).translateOnAxis(new THREE.Vector3(1, 0, 0), 0.5));
+
+      var mouth = new THREE.CircleGeometry(0.2, 32);
+      var mouthMat = new THREE.MeshPhongMaterial({color: 0x000000});
+      this.add(new THREE.Mesh(mouth, mouthMat).translateOnAxis(new THREE.Vector3(0,0,1), .51)
+      .translateOnAxis(new THREE.Vector3(0, 1, 0), -0.2));
+
+      var teeth = new THREE.PlaneGeometry(0.1, .2, 1 );
+      var teethMat = new THREE.MeshBasicMaterial({color: 0xFFFFFF, side: THREE.DoubleSide});
+      this.add(new THREE.Mesh(teeth, teethMat).translateOnAxis(new THREE.Vector3(1, 0, 0), -0.051)
+       .translateOnAxis(new THREE.Vector3(0, 1, 0), -0.1).translateOnAxis(new THREE.Vector3(0, 0, 1), 0.52));
+      this.add(new THREE.Mesh(teeth, teethMat).translateOnAxis(new THREE.Vector3(1, 0, 0), 0.051)
+       .translateOnAxis(new THREE.Vector3(0, 1, 0), -0.1).translateOnAxis(new THREE.Vector3(0, 0, 1), 0.52));
    }
 }
