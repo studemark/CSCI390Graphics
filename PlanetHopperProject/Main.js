@@ -17,6 +17,7 @@ function main() {
 
    for (var i = 0; i < 10; i++) {
       var planet = new Planet();
+      planet.rotateX(Math.random());
       scene.add(planet);
    } 
 
