@@ -1,10 +1,19 @@
 class Planet extends THREE.Mesh {
    constructor() {
+
+      function getRand() {
+         return Math.random() * 2 + 0.5;
+      }
+
+      function getRandPos() {
+         return (Math.round(Math.random()) * 2 - 1) * 3;
+      }
       const functionList = [
          function() {
-            var geometry = new THREE.BoxGeometry();
-            var material = new THREE.MeshBasicMaterial(
-             {color: 0xFF0000});
+            var geometry = new THREE.BoxGeometry().scale(getRand(), getRand(), 
+             getRand()).translate(getRandPos(), getRandPos(), getRandPos());
+            var material = new THREE.MeshPhongMaterial(
+             {color: (Math.random() * 0xFFFFFF)});
             return {
                geo: geometry, 
                mat: material
@@ -12,9 +21,10 @@ class Planet extends THREE.Mesh {
          },
 
          function() {
-            var geometry = new THREE.ConeGeometry();
-            var material = new THREE.MeshBasicMaterial(
-             {color: 0xFF0000});
+            var geometry = new THREE.ConeGeometry().scale(getRand(), getRand(), 
+             getRand()).translate(getRandPos(), getRandPos(), getRandPos());
+            var material = new THREE.MeshPhongMaterial(
+             {color: (Math.random() * 0xFFFFFF)});
             return {
                geo: geometry, 
                mat: material
@@ -22,9 +32,11 @@ class Planet extends THREE.Mesh {
          },
 
          function() {
-            var geometry = new THREE.CylinderGeometry();
-            var material = new THREE.MeshBasicMaterial(
-             {color: 0xFF0000});
+            var geometry = new THREE.CylinderGeometry().scale(getRand(), 
+             getRand(), getRand()).translate(getRandPos(), getRandPos(), 
+             getRandPos());
+            var material = new THREE.MeshPhongMaterial(
+             {color: (Math.random() * 0xFFFFFF)});
             return {
                geo: geometry, 
                mat: material
@@ -32,9 +44,11 @@ class Planet extends THREE.Mesh {
          },
 
          function() {
-            var geometry = new THREE.DodecahedronGeometry();
-            var material = new THREE.MeshBasicMaterial(
-             {color: 0xFF0000});
+            var geometry = new THREE.DodecahedronGeometry().scale(getRand(), 
+             getRand(), getRand()).translate(getRandPos(), getRandPos(), 
+             getRandPos());
+            var material = new THREE.MeshPhongMaterial(
+             {color: (Math.random() * 0xFFFFFF)});
             return {
                geo: geometry, 
                mat: material
@@ -42,9 +56,11 @@ class Planet extends THREE.Mesh {
          },
 
          function() {
-            var geometry = new THREE.IcosahedronGeometry();
-            var material = new THREE.MeshBasicMaterial(
-             {color: 0xFF0000});
+            var geometry = new THREE.IcosahedronGeometry().scale(getRand(), 
+             getRand(), getRand()).translate(getRandPos(), getRandPos(), 
+             getRandPos());
+            var material = new THREE.MeshPhongMaterial(
+             {color: (Math.random() * 0xFFFFFF)});
             return {
                geo: geometry, 
                mat: material
@@ -52,9 +68,11 @@ class Planet extends THREE.Mesh {
          },
 
          function() {
-            var geometry = new THREE.OctahedronGeometry();
-            var material = new THREE.MeshBasicMaterial(
-             {color: 0xFF0000});
+            var geometry = new THREE.OctahedronGeometry().scale(getRand(), 
+             getRand(), getRand()).translate(getRandPos(), getRandPos(), 
+             getRandPos());
+            var material = new THREE.MeshPhongMaterial(
+             {color: (Math.random() * 0xFFFFFF)});
             return {
                geo: geometry, 
                mat: material
@@ -62,9 +80,11 @@ class Planet extends THREE.Mesh {
          },
 
          function() {
-            var geometry = new THREE.SphereGeometry();
-            var material = new THREE.MeshBasicMaterial(
-             {color: 0xFF0000});
+            var geometry = new THREE.SphereGeometry().scale(getRand(), 
+             getRand(), getRand()).translate(getRandPos(), getRandPos(), 
+             getRandPos());
+            var material = new THREE.MeshPhongMaterial(
+             {color: (Math.random() * 0xFFFFFF)});
             return {
                geo: geometry, 
                mat: material
@@ -72,9 +92,11 @@ class Planet extends THREE.Mesh {
          },
 
          function() {
-            var geometry = new THREE.TetrahedronGeometry();
-            var material = new THREE.MeshBasicMaterial(
-             {color: 0xFF0000});
+            var geometry = new THREE.TetrahedronGeometry().scale(getRand(), 
+             getRand(), getRand()).translate(getRandPos(), getRandPos(), 
+             getRandPos());
+            var material = new THREE.MeshPhongMaterial(
+             {color: (Math.random() * 0xFFFFFF)});
             return {
                geo: geometry, 
                mat: material
@@ -82,9 +104,10 @@ class Planet extends THREE.Mesh {
          },
 
          function() {
-            var geometry = new THREE.TorusGeometry();
-            var material = new THREE.MeshBasicMaterial(
-             {color: 0xFF0000});
+            var geometry = new THREE.TorusGeometry().scale(getRand(), getRand(), 
+             getRand()).translate(getRandPos(), getRandPos(), getRandPos());
+            var material = new THREE.MeshPhongMaterial(
+             {color: (Math.random() * 0xFFFFFF)});
             return {
                geo: geometry, 
                mat: material
@@ -92,9 +115,11 @@ class Planet extends THREE.Mesh {
          },
 
          function() {
-            var geometry = new THREE.TorusKnotGeometry();
-            var material = new THREE.MeshBasicMaterial(
-             {color: 0xFF0000});  //(Math.random() * 0xFFFFFF << 0).toString(16)})
+            var geometry = new THREE.TorusKnotGeometry().scale(getRand(), 
+             getRand(), getRand()).translate(getRandPos(), getRandPos(), 
+             getRandPos());
+            var material = new THREE.MeshPhongMaterial(
+             {color: (Math.random() * 0xFFFFFF)});
             return {
                geo: geometry, 
                mat: material
@@ -102,9 +127,8 @@ class Planet extends THREE.Mesh {
          }
       ];
 
-      var newShape = functionList[Math.floor(Math.random() * Math.floor(10))];
+      var newShape = functionList[Math.floor(Math.random() * Math.floor(10))]();
       console.log(newShape);
-      var shape = newShape();
-      super(shape.geo, shape.mat);
+      super(newShape.geo, newShape.mat);
    }
 }
