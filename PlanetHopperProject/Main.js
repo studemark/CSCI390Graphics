@@ -18,7 +18,13 @@ function main() {
    var pList = [];
    for (var i = 0; i < 10; i++) {
       var planet = new Planet();
-      pList.push(planet);
+      console.log(planet);
+      var material = new THREE.MeshPhongMaterial({color: Math.random() * 0xFFFFFF});
+      planet.geometry.scale(scaleRand(), 
+       scaleRand(), scaleRand()).translate(getRand(-8, 8), 
+       getRand(-3, 3), getRand(-5, 5));
+      var mesh = new THREE.Mesh(planet.geometry, material);
+      pList.push(mesh);
    } 
    pList.forEach((p)=> {
       scene.add(p);
@@ -34,5 +40,15 @@ function main() {
    }
    animate();
 }
+
+function scaleRand() {
+   return (Math.random() * (2 - 0.5) + 0.5);
+}
+
+function getRand(min, max) {
+   var diff = max - (min);
+   return Math.floor((Math.random()) * diff - (max));
+}
+
 main();
 
