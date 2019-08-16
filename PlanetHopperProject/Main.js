@@ -24,9 +24,12 @@ function main() {
       scene.add(p);
    });
 
+   new topDownCamera(pList[0], ()=> renderer.render(scene, camera), false);
+   new topDownCamera(scene, ()=> renderer.render(scene, camera), true);
+
    function animate() {
       requestAnimationFrame(animate);
-      pList.forEach((obj)=> {obj.rotateX(0.1); obj.rotateY(0.1)});
+      //pList.forEach((obj)=> {obj.rotateX(0.05); obj.rotateY(0.01)});
       renderer.render(scene, camera);
    }
    animate();
