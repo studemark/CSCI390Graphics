@@ -15,12 +15,21 @@ function main() {
    scene.add(ambLight);
    scene.add(pntLight);
 
+   var pList = [];
    for (var i = 0; i < 10; i++) {
       var planet = new Planet();
-      planet.rotateX(Math.random());
-      scene.add(planet);
+      pList.push(planet);
    } 
+   pList.forEach((p)=> {
+      scene.add(p);
+   });
 
-   renderer.render(scene, camera);
+   function animate() {
+      requestAnimationFrame(animate);
+      pList.forEach((obj)=> {obj.rotateX(0.1); obj.rotateY(0.1)});
+      renderer.render(scene, camera);
+   }
+   animate();
 }
 main();
+
