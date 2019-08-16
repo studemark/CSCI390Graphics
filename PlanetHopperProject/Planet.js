@@ -1,21 +1,21 @@
 class Planet extends THREE.Mesh {
    constructor() { //8, 3, 5
 
-      function getRand() {
-         return Math.random() * 2;
+      function scaleRand() {
+         return (Math.random() * (2 - 0.5) + 0.5);
       }
 
-      function randCoord(min, max) {
+      function getRand(min, max) {
          var diff = max - (min);
          return Math.floor((Math.random()) * diff - (max));
       }
 
       const functionList = [
          function() {
-            var geometry = new THREE.BoxGeometry().scale(getRand(), getRand(), 
-             getRand()).translate(randCoord(-8, 8), 
-             randCoord(-3, 3), randCoord(-5, 5));
-            console.log(randCoord(-8, 8));
+            var geometry = new THREE.BoxGeometry().scale(scaleRand(), 
+             scaleRand(), scaleRand()).translate(getRand(-8, 8), 
+             getRand(-3, 3), getRand(-5, 5));
+            console.log(scaleRand());
             var material = new THREE.MeshPhongMaterial(
              {color: (Math.random() * 0xFFFFFF)});
             return {
@@ -25,9 +25,9 @@ class Planet extends THREE.Mesh {
          },
 
          function() {
-            var geometry = new THREE.ConeGeometry().scale(getRand(), getRand(), 
-             getRand()).translate(randCoord(-8, 8), 
-             randCoord(-3, 3), randCoord(-5, 5));
+            var geometry = new THREE.ConeGeometry().scale(scaleRand(), 
+            scaleRand(), scaleRand()).translate(getRand(-8, 8), 
+             getRand(-3, 3), getRand(-5, 5));
             var material = new THREE.MeshPhongMaterial(
              {color: (Math.random() * 0xFFFFFF)});
             return {
@@ -37,9 +37,9 @@ class Planet extends THREE.Mesh {
          },
 
          function() {
-            var geometry = new THREE.CylinderGeometry().scale(getRand(), 
-             getRand(), getRand()).translate(randCoord(-8, 8), 
-             randCoord(-3, 3), randCoord(-5, 5));
+            var geometry = new THREE.CylinderGeometry().scale(scaleRand(), 
+            scaleRand(), scaleRand()).translate(getRand(-8, 8), 
+             getRand(-3, 3), getRand(-5, 5));
             var material = new THREE.MeshPhongMaterial(
              {color: (Math.random() * 0xFFFFFF)});
             return {
@@ -49,9 +49,9 @@ class Planet extends THREE.Mesh {
          },
 
          function() {
-            var geometry = new THREE.DodecahedronGeometry().scale(getRand(), 
-             getRand(), getRand()).translate(randCoord(-8, 8), 
-             randCoord(-3, 3), randCoord(-5, 5));
+            var geometry = new THREE.DodecahedronGeometry().scale(scaleRand(), 
+            scaleRand(), scaleRand()).translate(getRand(-8, 8), 
+             getRand(-3, 3), getRand(-5, 5));
             var material = new THREE.MeshPhongMaterial(
              {color: (Math.random() * 0xFFFFFF)});
             return {
@@ -61,9 +61,9 @@ class Planet extends THREE.Mesh {
          },
 
          function() {
-            var geometry = new THREE.IcosahedronGeometry().scale(getRand(), 
-             getRand(), getRand()).translate(randCoord(-8, 8), 
-             randCoord(-3, 3), randCoord(-5, 5));
+            var geometry = new THREE.IcosahedronGeometry().scale(scaleRand(), 
+            scaleRand(), scaleRand()).translate(getRand(-8, 8), 
+             getRand(-3, 3), getRand(-5, 5));
             var material = new THREE.MeshPhongMaterial(
              {color: (Math.random() * 0xFFFFFF)});
             return {
@@ -73,9 +73,9 @@ class Planet extends THREE.Mesh {
          },
 
          function() {
-            var geometry = new THREE.OctahedronGeometry().scale(getRand(), 
-             getRand(), getRand()).translate(randCoord(-8, 8), 
-             randCoord(-3, 3), randCoord(-5, 5));
+            var geometry = new THREE.OctahedronGeometry().scale(scaleRand(), 
+            scaleRand(), scaleRand()).translate(getRand(-8, 8), 
+             getRand(-3, 3), getRand(-5, 5));
             var material = new THREE.MeshPhongMaterial(
              {color: (Math.random() * 0xFFFFFF)});
             return {
@@ -85,9 +85,9 @@ class Planet extends THREE.Mesh {
          },
 
          function() {
-            var geometry = new THREE.SphereGeometry().scale(getRand(), 
-             getRand(), getRand()).translate(randCoord(-8, 8), 
-             randCoord(-3, 3), randCoord(-5, 5));
+            var geometry = new THREE.SphereGeometry().scale(scaleRand(), 
+            scaleRand(), scaleRand()).translate(getRand(-8, 8), 
+             getRand(-3, 3), getRand(-5, 5));
             var material = new THREE.MeshPhongMaterial(
              {color: (Math.random() * 0xFFFFFF)});
             return {
@@ -97,9 +97,9 @@ class Planet extends THREE.Mesh {
          },
 
          function() {
-            var geometry = new THREE.TetrahedronGeometry().scale(getRand(), 
-             getRand(), getRand()).translate(randCoord(-8, 8), 
-             randCoord(-3, 3), randCoord(-5, 5));
+            var geometry = new THREE.TetrahedronGeometry().scale(scaleRand(), 
+            scaleRand(), scaleRand()).translate(getRand(-8, 8), 
+             getRand(-3, 3), getRand(-5, 5));
             var material = new THREE.MeshPhongMaterial(
              {color: (Math.random() * 0xFFFFFF)});
             return {
@@ -109,9 +109,9 @@ class Planet extends THREE.Mesh {
          },
 
          function() {
-            var geometry = new THREE.TorusGeometry().scale(getRand(), getRand(), 
-             getRand()).translate(randCoord(-8, 8), 
-             randCoord(-3, 3), randCoord(-5, 5));
+            var geometry = new THREE.TorusGeometry().scale(scaleRand(), 
+            scaleRand(), scaleRand()).translate(getRand(-8, 8), 
+             getRand(-3, 3), getRand(-5, 5));
             var material = new THREE.MeshPhongMaterial(
              {color: (Math.random() * 0xFFFFFF)});
             return {
@@ -121,9 +121,9 @@ class Planet extends THREE.Mesh {
          },
 
          function() {
-            var geometry = new THREE.TorusKnotGeometry().scale(getRand(), 
-             getRand(), getRand()).translate(randCoord(-8, 8), 
-             randCoord(-3, 3), randCoord(-5, 5));
+            var geometry = new THREE.TorusKnotGeometry().scale(scaleRand(), 
+            scaleRand(), scaleRand()).translate(getRand(-8, 8), 
+             getRand(-3, 3), getRand(-5, 5));
             var material = new THREE.MeshPhongMaterial(
              {color: (Math.random() * 0xFFFFFF)});
             return {
