@@ -1,5 +1,7 @@
 class Planet {
    constructor() {
+
+      var random = this.getRand(8, 100);
       const functionList = [
          function() {
             return new THREE.BoxGeometry();
@@ -44,5 +46,10 @@ class Planet {
 
       var newShape = functionList[Math.floor(Math.random() * Math.floor(10))]();
       this.geometry = newShape;
+   }
+
+   getRand(min, max) {
+      var diff = max - (min);
+      return Math.floor((Math.random()) * diff - (max));
    }
 }
