@@ -23,30 +23,34 @@ function main() {
    scene.background = skyTexture;
 
     var pList = [];
-   for (var i = 0; i < 1000; i++) {
+   for (var i = 0; i < 10; i++) {
       var planet = new Planet();
       var material = new THREE.MeshPhongMaterial({color: Math.random() * 0xFFFFFF});
       planet.geometry.scale(scaleRand(), 
-       scaleRand(), scaleRand()).translate(getRand(-100, 100), 
-       getRand(-100, 100), getRand(-100, 100));
+       scaleRand(), scaleRand()).translate(getRand(-10, 10), 
+       getRand(-10, 10), getRand(-10, 10));
       var mesh = new THREE.Mesh(planet.geometry, material);
+      mesh.geometry.computeBoundingSphere();
       pList.push(mesh);
    } 
    pList.forEach((p)=> {
       scene.add(p);
    });
  
-   var character = new Character();
-   scene.add(character);
+   /* var character = new Character();
+   scene.add(character); */
    var camera = new THREE.PerspectiveCamera(30, 
-      window.innerWidth/window.innerHeight, 0.1, 1000);
+    window.innerWidth/window.innerHeight, 0.1, 1000);
      
-     camera.position.z = 10;
-     
+   camera.position.z = 10;
 
-   new topDownCamera(camera, ()=> renderer.render(scene, camera), false);
-   new topDownCamera(scene, ()=> renderer.render(scene, camera), true);
+   let helper = new THREE.CameraHelper(camera);
+   scene.add(helper);
 
+   //new topDownCamera(scene, pList, ()=> renderer.render(scene, camera), true);
+   console.log(pList[0].geometry);
+   new topDownCamera(camera, pList, ()=> renderer.render(scene, camera), false);
+   
    function animate() {
       requestAnimationFrame(animate);
       //pList.forEach((obj)=> {obj.rotateX(0.05); obj.rotateY(0.01)});
