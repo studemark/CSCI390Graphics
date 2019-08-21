@@ -29,6 +29,9 @@ class topDownCamera{
             refresh();
          }
       });
+      trg.position.x = this.planets[this.itr].position.x;
+      trg.position.y = this.planets[this.itr].position.y;
+      trg.position.z = this.planets[this.itr].position.z + 15;
       trg.lookAt(this.planets[this.itr].position);
       console.log(this.planets[this.itr].position);
    }
@@ -36,6 +39,9 @@ class topDownCamera{
    itrPlanetNext() {
       if (this.itr < this.planets.length - 1) {
          this.itr++;
+         this.trg.position.x = this.planets[this.itr].position.x;
+         this.trg.position.y = this.planets[this.itr].position.y;
+         this.trg.position.z = this.planets[this.itr].position.z + 15;
          this.trg.lookAt(this.planets[this.itr].position);
       }
    }
@@ -43,6 +49,9 @@ class topDownCamera{
    itrPlanetPrev() {
       if (this.itr !== 0) {
          this.itr--;
+         this.trg.position.x = this.planets[this.itr].position.x;
+         this.trg.position.y = this.planets[this.itr].position.y;
+         this.trg.position.z = this.planets[this.itr].position.z + 15;
          this.trg.lookAt(this.planets[this.itr].position);
       }
    }

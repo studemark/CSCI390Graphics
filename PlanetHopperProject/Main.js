@@ -23,6 +23,8 @@ function main() {
    scene.background = skyTexture;
 
     var pList = [];
+    var character = new Character();
+    pList.push(character);
     var bounds = [];
    for (var i = 0; i < 1000; i++) {
       var planet = new Planet();
@@ -43,18 +45,17 @@ function main() {
       bounds.push(sphereBounds);
       pList.push(mesh);
    } 
+
    pList.forEach((p)=> {
       scene.add(p);
    });
- 
-   var character = new Character();
-   scene.add(character); 
+  
    var camera = new THREE.PerspectiveCamera(30, 
     window.innerWidth/window.innerHeight, 0.1, 1000);
      
    camera.position.z = 10;
 
-   new topDownCamera(scene, pList, ()=> renderer.render(scene, camera), true);
+   //new topDownCamera(scene, pList, ()=> renderer.render(scene, camera), true);
    new topDownCamera(camera, pList, ()=> renderer.render(scene, camera), false);
    
    function animate() {
