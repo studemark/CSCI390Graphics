@@ -1,7 +1,6 @@
 class Planet {
    constructor() {
 
-      var random = this.getRand(8, 100);
       const functionList = [
          function() {
             return new THREE.BoxGeometry();
