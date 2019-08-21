@@ -22,17 +22,17 @@ function main() {
    ]);
    scene.background = skyTexture;
 
-    var pList = [];
-    var character = new Character();
-    pList.push(character);
-    var bounds = [];
+   var pList = [];
+   var character = new Character();
+   pList.push(character);
+   var bounds = [];
    for (var i = 0; i < 1000; i++) {
       var planet = new Planet();
       var material = new THREE.MeshPhongMaterial({color: Math.random() * 0xFFFFFF});
       var mesh = new THREE.Mesh(planet.geometry, material);
       mesh.scale.set(scaleRand(), scaleRand(), scaleRand());
       mesh.translateX(getRand(-100, 100)).translateY(getRand(-100, 100))
-      .translateZ(getRand(-100, 100));
+       .translateZ(getRand(-100, 100));
       mesh.geometry.computeBoundingSphere();
       var sphereBounds = new THREE.Sphere(mesh.position, mesh.geometry.boundingSphere.radius);
       bounds.forEach((sb) => {
