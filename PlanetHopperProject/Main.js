@@ -26,10 +26,10 @@ function main() {
    for (var i = 0; i < 10; i++) {
       var planet = new Planet();
       var material = new THREE.MeshPhongMaterial({color: Math.random() * 0xFFFFFF});
-      planet.geometry.scale(scaleRand(), 
-       scaleRand(), scaleRand()).translate(getRand(-10, 10), 
-       getRand(-10, 10), getRand(-10, 10));
       var mesh = new THREE.Mesh(planet.geometry, material);
+      mesh.scale.set(scaleRand(), scaleRand(), scaleRand());
+      mesh.translateX(getRand(-10, 10)).translateY(getRand(-10, 10))
+      .translateZ(getRand(-10, 10));
       mesh.geometry.computeBoundingSphere();
       pList.push(mesh);
    } 
@@ -48,7 +48,7 @@ function main() {
    scene.add(helper);
 
    //new topDownCamera(scene, pList, ()=> renderer.render(scene, camera), true);
-   console.log(pList[0].geometry);
+   console.log(pList[0]);
    new topDownCamera(camera, pList, ()=> renderer.render(scene, camera), false);
    
    function animate() {
