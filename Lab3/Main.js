@@ -97,7 +97,7 @@ function main() {
 } 
 
 function drawScene(gl, shaderPrg, object, mvMatrix, ambient) {
-   gl.clearColor(0.529, 0.808, 0.980, 1.0);  
+   gl.clearColor(0.6, 0.8, 1.0, 1.0);  
    //gl.clearColor(0.0, 0.0, 0.0, 1.0);
    gl.clearDepth(1.0);                 
    gl.enable(gl.DEPTH_TEST);           
