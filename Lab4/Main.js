@@ -40,7 +40,7 @@ function main() {
       'mvMatrix', 'projMatrix', 'normMatrix']);
    
    const mvMatrix = mat4.create();
-   const object = new Sphere(gl, 3, 3, Material.gold);
+   const object = new Sphere(gl, 60, 60, Material.gold);
    
    var lat = 0;
    var lng = 0;
